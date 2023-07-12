@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // Módulo path de Node.js
 import path from "path";
 // Módulo fs de Node.js
