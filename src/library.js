@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { promises as fs } from "fs";   
 import { marked } from "marked";
 import { load } from "cheerio";
 
@@ -14,7 +14,7 @@ function extractLinksFromFile(absolutePath) {
         return {  href: link, text: text ,  file: absolutePath};
       }).get(); 
 
-      //Validar links
+      //Me falta validar links
 
       return links    
   });
