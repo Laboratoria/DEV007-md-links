@@ -1,0 +1,6 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+      // Configura tus reglas personalizadas aquí
+    }
+  }
