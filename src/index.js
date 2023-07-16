@@ -4,19 +4,18 @@ import path from "path";
 import { promises as fs } from "fs";
 import {  extractLinksFromFile } from "./library.js";
 
-const optionTerminal = {
+const optionTerminal = { 
   validate: process.argv.includes("--validate"), // Verifica si se proporcionó la opción --validate
   stats: process.argv.includes("--stats"), // Verifica si se proporcionó la opción --stats
 };
 
 const filePathTerminal = process.argv[2]; // Obtiene el primer argumento después del nombre del archivo
 
-function mdLinks(filePath) {
+function mdLinks(filePath) {  //process.cwd() =  C:\laboratoria-yanet\Git\DEV007-md-links
   const absolutePath = path.resolve(process.cwd(), filePath);
 
-  return fs
-    .stat(absolutePath)
-    .then((metadata) => {
+  return fs.stat(absolutePath).then((metadata) => {
+   
       //Falta directorio
 
       if (metadata.isFile() && path.extname(absolutePath) === ".md") {
