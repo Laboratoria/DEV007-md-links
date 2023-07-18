@@ -1,6 +1,13 @@
 {
     "extends": "airbnb-base",
     "rules": {
-      // Configura tus reglas personalizadas aquí
+      "import/extensions": [
+        "error",
+        "always",
+        {
+          "js": "never"
+        }
+      ]
+
     }
   }
