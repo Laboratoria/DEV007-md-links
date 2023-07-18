@@ -1,4 +1,4 @@
-import saludar from './saludo.js';
+import mdLinks from './CLI.js';
 
 // const index = require('./index').saludar;
-saludar('lamomia');
+mdLinks();
