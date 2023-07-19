@@ -5,6 +5,7 @@ import https from 'https';
 import chalk from 'chalk';
 import { program } from 'commander';
 
+// ==============================================MDLINK=============================================
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
     try {
@@ -12,7 +13,7 @@ const mdLinks = (path, options) => {
       const extractedLinks = [];
       const validLinks = [];
       const brokenLinks = [];
-
+      // ======================================PROCESS FILE=========================================
       const processFile = (file) => {
         const fileContent = readFileSync(file, 'utf8');
         const regex = /\[.*?\]\(((?:https?|ftp):\/\/.*?)\)/g;
@@ -21,28 +22,33 @@ const mdLinks = (path, options) => {
         while ((match = regex.exec(fileContent)) !== null) {
           extractedLinks.push(match[1]);
         }
+        console.log('Extracted Links', extractedLinks);
       };
-
+      // ======================================PROCESS DIRECTORY====================================
       const processDirectory = (dir) => {
+        console.log('Processing directory:', dir);
         const files = readdirSync(dir);
+        console.log('Files:', files);
         files.forEach((file) => {
           const filePath = join(dir, file);
+          console.log('File path:', filePath);
           const stats = statSync(filePath);
 
           if (stats.isDirectory()) {
-            processDirectory(filePath); // Recursive call for subdirectories
+            processDirectory(filePath);
           } else if (stats.isFile() && extname(filePath) === '.md') {
             mdFiles.push(filePath);
           }
         });
       };
-
+      // ==========================================OPTIONS==========================================
       if (options.validate) {
         if (existsSync(path)) {
           const stats = statSync(path);
           if (stats.isDirectory()) {
             console.log('Processing directory...');
             processDirectory(path);
+            console.log('mdFiles length:', mdFiles.length);
           } else if (stats.isFile() && extname(path) === '.md') {
             mdFiles.push(path);
           } else {
@@ -52,11 +58,11 @@ const mdLinks = (path, options) => {
           console.log('The path does not exist');
         }
       }
-
+      // ==========================================RECURSIVITY======================================
       mdFiles.forEach((file) => {
         processFile(file);
       });
-
+      // ========================================HTTP/HTTPS STATUS==================================
       const linksPromises = extractedLinks.map((link) => {
         return new Promise((resolveLink) => {
           const httpModule = link.startsWith('https') ? https : http;
@@ -65,10 +71,10 @@ const mdLinks = (path, options) => {
             const ok = status >= 200 && status < 400;
             const linkObj = {
               href: link,
-              text: '', // You can extract the text if necessary
+              text: '',
               file: path,
               status,
-              ok: ok ? chalk.green('ok') : chalk.red('fail'),
+              ok: ok ? chalk.blue('ok') : chalk.red('fail'),
             };
 
             if (options.validate) {
@@ -83,13 +89,13 @@ const mdLinks = (path, options) => {
 
             resolveLink(linkObj);
           });
-
+            // ======================================ERRORS HANDELER================================
           request.on('error', () => {
             const linkObj = {
               href: link,
-              text: '', // You can extract the text if necessary
+              text: '',
               file: path,
-              status: -1, // Connection error
+              status: -1,
               ok: 'fail',
             };
 
@@ -103,7 +109,7 @@ const mdLinks = (path, options) => {
           request.end();
         });
       });
-
+      // ======================================RETURN RESULTS=======================================
       Promise.all(linksPromises)
         .then((links) => {
           if (options.stats) {
@@ -132,6 +138,7 @@ const mdLinks = (path, options) => {
   });
 };
 
+// =========================================COMMANDER CREATER=======================================
 program
   .command('mdlinks <path>')
   .option('-v, --validate', 'Validate if the path exists')
@@ -147,5 +154,8 @@ program
   });
 
 program.parse(process.argv);
+// =========================================EXPORT====================================
 
 export default mdLinks;
+
+// =========================================END=======================================
