@@ -1,4 +1,6 @@
-import { existsSync, statSync, readdirSync, readFileSync } from 'fs';
+import {
+  existsSync, statSync, readdirSync, readFileSync,
+} from 'fs';
 import { extname, join } from 'path';
 import http from 'http';
 import https from 'https';
@@ -138,6 +140,7 @@ const mdLinks = (path, options) => {
   });
 };
 
+
 // =========================================COMMANDER CREATER=======================================
 program
   .command('mdlinks <path>')
@@ -154,8 +157,5 @@ program
   });
 
 program.parse(process.argv);
-// =========================================EXPORT====================================
-
-export default mdLinks;
 
 // =========================================END=======================================
