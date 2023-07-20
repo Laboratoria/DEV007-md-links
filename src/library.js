@@ -7,7 +7,6 @@ import { marked } from "marked";
 import { load } from "cheerio";
 
 
-
 // Validar la ruta y convertirla a absoluta
 const validatePath = (filePath) => {
   if (path.isAbsolute(filePath)) {
@@ -18,7 +17,7 @@ const validatePath = (filePath) => {
 };
 
 // Validar si es un archivo Markdown (.md)
-const fileMd = (filePath) => {
+const isMD = (filePath) => {
   return path.extname(filePath) === ".md";
 };
 
@@ -136,7 +135,6 @@ export {
   validateLinks,
   countLinks,
 };
-
 
 
 
