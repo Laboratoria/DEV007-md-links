@@ -77,6 +77,33 @@ function validateLinks(link, filePath) {
     }));
 }
 
+// Función para contar los links
+function countLinks(links, options) {
+  const uniqueLinks = new Set();
+
+  if (options.validate && options.stats) {
+    let brokenLinks = 0;
+    links.forEach((link) => {
+      uniqueLinks.add(link.href);
+      if (link.ok === "fail") {
+        brokenLinks++;
+      }
+    });
+    return {
+      total: links.length,
+      unique: uniqueLinks.size,
+      broken: brokenLinks,
+    };
+  } else if (!options.validate && options.stats) {
+    links.forEach((link) => {
+      uniqueLinks.add(link.href);
+    });
+    return {
+      total: links.length,
+      unique: uniqueLinks.size,
+    };
+  }
+}
 // Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo.
 export {
   extractLinksFromFile,
