@@ -7,6 +7,7 @@ import { marked } from "marked";
 import { load } from "cheerio";
 
 
+
 // Validar la ruta y convertirla a absoluta
 const validatePath = (filePath) => {
   if (path.isAbsolute(filePath)) {
