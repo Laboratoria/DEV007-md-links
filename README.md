@@ -4,14 +4,14 @@
 
 ## Índice
 
-* [1. Preámbulo](#1-preámbulo)
+* [1. ](#1- Introducción (Introducción)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instalación](#3-instalacion)
-* [4. Diagramas de flujo](#4-diagramas-de-flujo)
+* [4. Diagrama de flujo](#4-diagrama-de-flujo)
 * [5. Comandos](#5-comandos)
 
 ***
-## 1. Introducción# 
+## 1. Introducción
 Este proyecto consiste en crear una herramienta Linkyan. Librería en Javascript que te permite leer archivos Markdown (.md) para verificar los links que contengan y reportar algunas estadísticas, incluyendo si son válidos o no, con solo ingresar una ruta, además de proporcionar una herramienta de línea de comando (CLI).
 
 ## 2. Resumen del proyecto
@@ -31,7 +31,7 @@ Con esta herramienta, los desarrolladores podrán mantener sus archivos Markdown
 ## 3. Instalación
 #### `npm install md-links`
 
-## 4. Diagramas de flujo
+## 4. Diagrama de flujo
 
 ![Image](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
@@ -42,11 +42,11 @@ Nuestra aplicación se ejecuta de la siguiente manera a través de la terminal:
 
 #### `md-links <path-to-file> [options]`
 
-### Menú de ayuda
+#### Menú de ayuda
 
 
 
-### Opciones
+#### Opciones
 
 
 
