@@ -55,6 +55,28 @@ function extractLinksFromFile(filePath, validate) {
   });
 }
 
+// Validar el estado de los links encontrados
+function validateLinks(link, filePath) {
+  const text = link.text.length > 60 ? link.text.substring(0, 60) : link.text;
+
+  return axios
+    .head(link.href)
+    .then((response) => ({
+      href: link.href,
+      text: text,
+      file: filePath,
+      status: response.status,
+      ok: response.status >= 200 && response.status <= 299 ? "ok" : "fail",
+    }))
+    .catch((err) => ({
+      href: link.href,
+      text: text,
+      file: filePath,
+      status: err.response ? err.response.status : "unknown",
+      ok: "fail",
+    }));
+}
+
 // Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo.
 export {
   extractLinksFromFile,
