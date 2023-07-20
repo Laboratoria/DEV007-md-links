@@ -127,7 +127,7 @@ const mdLinks = (options, filePath) => {
   });
 };
 
-// Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo.
+// Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo index.js.
 export {
   mdLinks,
   extractLinksFromFile,
