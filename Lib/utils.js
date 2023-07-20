@@ -5,7 +5,7 @@ import https from 'https';
 import { join, extname } from 'path';
 import chalk from 'chalk';
 
-// Función para procesar un archivo y extraer los enlaces
+// =================================================PROCESS FILE
 const processFile = (file, extractedLinks) => {
   const fileContent = readFileSync(file, 'utf8');
   const regex = /\[.*?\]\(((?:https?|ftp):\/\/.*?)\)/g;
@@ -16,7 +16,7 @@ const processFile = (file, extractedLinks) => {
   }
 };
 
-// Función para procesar un directorio y encontrar archivos .md
+// =============================================PROCESS DIRECTORY
 const processDirectory = (dir, mdFiles, extractedLinks) => {
   console.log('Processing directory:', dir);
   const files = readdirSync(dir);
@@ -38,9 +38,9 @@ const processDirectory = (dir, mdFiles, extractedLinks) => {
   return Promise.all(promises);
 };
 
-// Función para validar un enlace
+// ===============================================LINK VALIDATOR
 const validateLink = (link) => {
-  return new Promise((resolve) => {
+return new Promise((resolve) => {
     const httpModule = link.startsWith('https') ? https : http;
     const request = httpModule.request(link, { method: 'HEAD' }, (response) => {
       const status = response.statusCode;
@@ -70,21 +70,22 @@ const validateLink = (link) => {
   });
 };
 
-// Función para procesar los enlaces y validarlos si es necesario
 const processLinks = (extractedLinks, options) => {
-  const linksPromises = extractedLinks.map((link) => {
-    if (options.validate) {
+  if (options.validate) {
+    const linksPromises = extractedLinks.map((link) => {
       return validateLink(link);
-    } else {
-      const linkObj = {
+    });
+
+    return Promise.all(linksPromises);
+  } else {
+    const links = extractedLinks.map((link) => {
+      return {
         href: link,
         text: '',
       };
-      return Promise.resolve(linkObj);
-    }
-  });
-
-  return Promise.all(linksPromises);
+    });
+    return Promise.resolve(links);
+  }
 };
 
 export { processFile, processDirectory, processLinks };
