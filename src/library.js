@@ -6,8 +6,6 @@ import axios from "axios";
 import { marked } from "marked";
 import { load } from "cheerio";
 
-
-
 // Validar la ruta y convertirla a absoluta
 const validatePath = (filePath) => {
   if (path.isAbsolute(filePath)) {
@@ -104,9 +102,37 @@ function countLinks(links, options) {
     };
   }
 }
+
+// Función principal mdLinks
+const mdLinks = (options, filePath) => {
+  return new Promise((resolve, reject) => {
+    const absolutePath = validatePath(filePath);
+    fs.stat(absolutePath)
+      .then((metadata) => {
+        if (metadata.isDirectory()) {
+          extractLinksFromDirectory(absolutePath, options.validate)
+            .then((linksArray) => resolve(linksArray))
+            .catch((err) => reject(err));
+        } else if (metadata.isFile() && isMD(absolutePath)) {
+          extractLinksFromFile(absolutePath, options.validate)
+            .then((linksArray) => resolve(linksArray))
+            .catch((err) => reject(err));
+        } else {
+          reject(new Error("La ruta debe ser un archivo Markdown o un directorio."));
+        }
+      })
+      .catch(() => {
+        reject(new Error("La ruta debe ser un archivo Markdown o un directorio."));
+      });
+  });
+};
+
 // Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo.
 export {
+  mdLinks,
   extractLinksFromFile,
+  validateLinks,
+  countLinks,
 };
 
 
