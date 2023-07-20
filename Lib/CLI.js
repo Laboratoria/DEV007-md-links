@@ -1,7 +1,8 @@
 // CLI.js
+
 import { program } from 'commander';
 import mdLinks from './mdLinks.js';
-import chalk from 'chalk'; // Import Chalk
+import chalk from 'chalk';
 
 program
   .command('mdlinks <path>')
@@ -20,10 +21,11 @@ program
           console.log(chalk.red(`Broken: ${broken}`));
         } else {
           links.forEach((link) => {
+            console.log(link);
             console.log(
-              chalk.blue(link.file),
+              chalk.blue(path),
               link.href,
-              link.ok === 'ok' ? chalk.green(link.ok) : chalk.red(link.ok),
+              link.ok === 'ok' ? chalk.green(link.ok) : chalk.green(link.ok),
               link.text
             );
           });

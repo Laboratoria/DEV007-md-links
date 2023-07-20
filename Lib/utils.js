@@ -1,11 +1,23 @@
 // utils.js
+
 import { statSync, readdirSync, readFileSync } from 'fs';
 import http from 'http';
 import https from 'https';
-import { join, extname } from 'path';
+import { join, extname, resolve, isAbsolute  } from 'path';
 import chalk from 'chalk';
 
-// =================================================PROCESS FILE
+// .....................FUNCTIONS..........................
+
+// ================================CONVERT TO ABSOLUTE PATH
+const convertToAbsolutePath = (filePath) => {
+  if(isAbsolute(filePath)){
+    return filePath
+  }
+  return resolve(filePath);
+};
+
+// ============================================PROCESS FILE
+
 const processFile = (file, extractedLinks) => {
   const fileContent = readFileSync(file, 'utf8');
   const regex = /\[.*?\]\(((?:https?|ftp):\/\/.*?)\)/g;
@@ -16,7 +28,8 @@ const processFile = (file, extractedLinks) => {
   }
 };
 
-// =============================================PROCESS DIRECTORY
+// =========================================PROCESS DIRECTORY
+
 const processDirectory = (dir, mdFiles, extractedLinks) => {
   console.log('Processing directory:', dir);
   const files = readdirSync(dir);
@@ -38,9 +51,10 @@ const processDirectory = (dir, mdFiles, extractedLinks) => {
   return Promise.all(promises);
 };
 
-// ===============================================LINK VALIDATOR
+// ==============================================VALIDATE LINK
+
 const validateLink = (link) => {
-return new Promise((resolve) => {
+  return new Promise((resolve) => {
     const httpModule = link.startsWith('https') ? https : http;
     const request = httpModule.request(link, { method: 'HEAD' }, (response) => {
       const status = response.statusCode;
@@ -70,6 +84,8 @@ return new Promise((resolve) => {
   });
 };
 
+// =======================================PROCESS LINKS
+
 const processLinks = (extractedLinks, options) => {
   if (options.validate) {
     const linksPromises = extractedLinks.map((link) => {
@@ -88,4 +104,4 @@ const processLinks = (extractedLinks, options) => {
   }
 };
 
-export { processFile, processDirectory, processLinks };
+export { processFile, processDirectory, processLinks, convertToAbsolutePath };
