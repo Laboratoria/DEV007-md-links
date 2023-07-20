@@ -4,7 +4,7 @@
 
 ## Índice
 
-* [1. Introducción] (Introducción)
+* [1. Introducción](#1-Introducción)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instalación](#3-instalacion)
 * [4. Diagrama de flujo](#4-diagrama-de-flujo)
