@@ -25,7 +25,7 @@ program
             console.log(
               chalk.blue(path),
               link.href,
-              link.ok === 'ok' ? chalk.green(link.ok) : chalk.green(link.ok),
+              link.ok === 'ok' ? chalk.inverse.green(link.ok) : chalk.green(link.ok),
               link.text
             );
           });
