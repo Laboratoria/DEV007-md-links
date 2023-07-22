@@ -26,6 +26,7 @@ const processFile = (file, extractedLinks) => {
   while ((match = regex.exec(fileContent)) !== null) {
     extractedLinks.push(match[1]);
   }
+  return extractedLinks
 };
 
 // =========================================PROCESS DIRECTORY
@@ -33,18 +34,16 @@ const processFile = (file, extractedLinks) => {
 const processDirectory = (dir, mdFiles, extractedLinks) => {
   console.log('Processing directory:', dir);
   const files = readdirSync(dir);
-  console.log('Files:', files);
 
   const promises = files.map((file) => {
     const filePath = join(dir, file);
-    console.log('File path:', filePath);
     const stats = statSync(filePath);
 
     if (stats.isDirectory()) {
       return processDirectory(filePath, mdFiles, extractedLinks);
     } else if (stats.isFile() && extname(filePath) === '.md') {
       mdFiles.push(filePath);
-      processFile(filePath, extractedLinks);
+      return processFile(filePath, extractedLinks); // Add 'return' here to return the promise from processFile
     }
   });
 
@@ -104,4 +103,10 @@ const processLinks = (extractedLinks, options) => {
   }
 };
 
-export { processFile, processDirectory, processLinks, convertToAbsolutePath };
+const displayLinks = (links, path) => {
+  links.forEach((link) => {
+    //console.log(link);
+    const { href, text, status, ok } = link;
+    console.log(`${path} ${chalk.inverse.magenta(href)} ${ok ? chalk.cyan('ok') : chalk.red('fail')} ${chalk.gray(text)}`);
+  })};
+export { processFile, processDirectory, processLinks, convertToAbsolutePath, displayLinks };
