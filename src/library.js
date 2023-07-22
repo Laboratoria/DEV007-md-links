@@ -26,33 +26,6 @@ const readDoc = (filePath) => {
   return fs.readFile(filePath, "utf-8");
 };
 
-// Extraer los links del archivo markdown
-function extractLinksFromFile(filePath, validate) {
-  return readDoc(filePath).then((fileContent) => {
-    const htmlContent = marked(fileContent);
-    const dom = load(htmlContent);
-
-    const links = dom("a").map((_, element) => {
-      const href = dom(element).attr("href");
-      const text = dom(element).text();
-      return { href, text };
-    }).get();
-
-    if (validate) {
-      const linkPromises = links.map((link) => {
-        return validateLinks(link, filePath);
-      });
-
-      return Promise.all(linkPromises);
-    } else {
-      return links.map((link) => ({
-        href: link.href,
-        text: link.text,
-        file: filePath,
-      }));
-    }
-  });
-}
 
 // Validar el estado de los links encontrados
 function validateLinks(link, filePath) {
@@ -104,6 +77,52 @@ function countLinks(links, options) {
   }
 }
 
+// Extraer los links del archivo markdown
+function extractLinksFromFile(filePath, validate) {
+  return readDoc(filePath).then((fileContent) => {
+    const htmlContent = marked(fileContent);
+    const dom = load(htmlContent);
+
+    const links = dom("a").map((_, element) => {
+      const href = dom(element).attr("href");
+      const text = dom(element).text();
+      return { href, text };
+    }).get();
+
+    if (validate) {
+      const linkPromises = links.map((link) => {
+        return validateLinks(link, filePath);
+      });
+
+      return Promise.all(linkPromises);
+    } else {
+      return links.map((link) => ({
+        href: link.href,
+        text: link.text,
+        file: filePath,
+      }));
+    }
+  });
+}
+//la ruta de un directorio y se encarga de extraer todos link archivos Markdown.
+function extractLinksFromDirectory(directoryPath, validate) {
+  return fs.readdir(directoryPath).then((filesArray) => {
+    const promises = filesArray.map((file) => {
+      const filePath = path.join(directoryPath, file);
+      return fs.stat(filePath).then((metadata) => {
+        if (metadata.isDirectory()) {
+          return extractLinksFromDirectory(filePath, validate);
+        } else if (metadata.isFile() && isMD(file)) {
+          return extractLinksFromFile(filePath, validate);
+        } else {
+          return Promise.resolve([]);
+        }
+      });
+    });
+    return Promise.all(promises).then((linksArray) => [].concat(...linksArray));
+  });
+}
+
 // Función principal mdLinks
 const mdLinks = (options, filePath) => {
   return new Promise((resolve, reject) => {
@@ -112,18 +131,18 @@ const mdLinks = (options, filePath) => {
       .then((metadata) => {
         if (metadata.isDirectory()) {
           extractLinksFromDirectory(absolutePath, options.validate)
-            .then((linksArray) => resolve(linksArray))
+            .then((linksArray) => resolve(linksArray,absolutePath))
             .catch((err) => reject(err));
         } else if (metadata.isFile() && isMD(absolutePath)) {
           extractLinksFromFile(absolutePath, options.validate)
-            .then((linksArray) => resolve(linksArray))
+            .then((linksArray) => resolve(linksArray,absolutePath))
             .catch((err) => reject(err));
         } else {
-          reject(new Error("La ruta debe ser un archivo Markdown o un directorio."));
+          reject(new Error(`La ruta ingresada debe ser un archivo markdown(.md) o un directorio existente.\nRuta: ${absolutePath}`));
         }
       })
       .catch(() => {
-        reject(new Error("La ruta debe ser un archivo Markdown o un directorio."));
+        reject(new Error(`La ruta ingresada debe ser un archivo markdown(.md) o un directorio existente.\nRuta: ${absolutePath}`));
       });
   });
 };

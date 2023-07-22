@@ -26,10 +26,6 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "build": "babel src --out-dir dist --copy-files",
-    "test": "jest --coverage"
-  },
   "repository": {
     "type": "git",
     "url": "\"git+httpnpx jests://github.com/Yanettr/DEV005-md-links.git\""
@@ -45,7 +41,6 @@
     "@types/eslint": "^8.44.0",
     "axios": "^1.4.0",
     "chalk": "^5.3.0",
-    "chalk": "^5.3.0",
     "cheerio": "^1.0.0-rc.12",
     "colors": "^1.4.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -58,7 +53,6 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.9",
     "@babel/cli": "^7.22.9",
     "@babel/core": "^7.22.8",
     "@babel/node": "^7.22.6",
