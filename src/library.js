@@ -104,6 +104,7 @@ function extractLinksFromFile(filePath, validate) {
     }
   });
 }
+
 //la ruta de un directorio y se encarga de extraer todos link archivos Markdown.
 function extractLinksFromDirectory(directoryPath, validate) {
   return fs.readdir(directoryPath).then((filesArray) => {
@@ -150,9 +151,9 @@ const mdLinks = (options, filePath) => {
 // Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo.
 export {
   mdLinks,
-  extractLinksFromFile,
-  validateLinks,
   countLinks,
+  extractLinksFromFile,
+  extractLinksFromDirectory
 };
 
 
