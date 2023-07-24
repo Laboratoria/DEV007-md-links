@@ -57,29 +57,31 @@ const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats
         })
         .then((result) => {
           if (options.stats && options.validate) {
-            printStatsWithBroken(result);
+            printValidateAndStats(result, resolve);
           } else if (options.stats) {
             printStats(result);
+          } else if (options.validate) {
+            resolve(result);
           } else {
             resolve(result);
-          }
+          } 
         })
         .catch((error) => {
           reject(error);
         });
-      } else if (path.extname(inputPath) === ".md") {
+      } else if (path.extname(inputPath) === ".md"){ 
         readMarkdownFile(inputPath, options)
           .then((links) => {
             if (options.stats && options.validate) {
-              printStatsWithBroken(links);
-              // const linkPromises = allLinks.map((link) => validateLink(link));
-              // return Promise.all(linkPromises);
+              printValidateAndStats(result, resolve);
             } else if (options.stats && !options.validate) {
               printStats(links);
+            } else if (options.validate) {
+              resolve(result);
             } else {
               resolve(links);
             }
-          })
+          }) 
           .catch((error) => {
             reject(error);
           });
@@ -101,7 +103,8 @@ const readMarkdownFile = (filePath, options) => {
       // ciclo de busqueda de links con el metodo .exec
       const text = match[1];
       const href = match[2];
-      links.push({ text, href }); // pucheo cada link en mi arreglo
+      // links.push({ text, href }); // pucheo cada link en mi arreglo
+      links.push({ text, href, file: filePath }); // pucheo cada link en mi arreglo
     }
     // console.log(links);
 
@@ -179,9 +182,15 @@ const printStatsWithBroken = (links) => {
   console.log(`Broken: ${stats.Broken}`);
 };
 
+//
+ const printValidateAndStats = (links, resolve) => {
+  resolve(links);
+  printStatsWithBroken(links);
+ }
+
 module.exports = {
   mdLinks,
   statsLinks,
   statsValidatelinks,
 };
-mdLinks();
+

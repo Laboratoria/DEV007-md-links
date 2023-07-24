@@ -8,10 +8,14 @@ const statsOption = process.argv.includes("--stats");
 const options = { validate: validateOption, stats: statsOption };
 
 if (command) {
+  // console.log(command);
   mdLinks(command, options)
     .then((result) => {
+      // console.log(options);
       if (result.length > 0) {
+        console.log(result);
         if (options.validate && options.stats) {
+          // console.log(options.validate && options.stats);
           result.flat().forEach((link) => {
             console.log(colors.cyan(`(${link.file}, ${link.href}, ${link.text}, ${link.ok}, ${link.status})`));
           });
