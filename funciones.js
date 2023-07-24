@@ -14,7 +14,7 @@ export function existenciaDeLaRuta(ruta) {
 // ruta absoluta o relativa
 
 // eslint-disable-next-line consistent-return
-export function rutaAbsolutaRelativa(ruta) {
+export function rutaAbsoluta(ruta) {
   if (path.isAbsolute(ruta)) return ruta;
 }
 
@@ -46,10 +46,13 @@ export function rutaEsDirectorio(directorio) {
 // leer archivo .md
 export function leerArchivoMD(archivoMD) {
   return new Promise((resolve, reject) => {
-    fs.readFile(archivoMD, 'utf-8', (error, contenido) => {
-      resolve(contenido);
-      reject(error);
-    });
+    try {
+      fs.readFile(archivoMD, 'utf-8', (_, contenido) => {
+        resolve(contenido);
+      });
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 // convertir archivo .md a html
@@ -64,7 +67,7 @@ export function extraerLinks(html, file) {
   const $ = cheerio.load(html);
 
   const links = [];
-  $('a').each((index, element) => {
+  $('a').each((_, element) => {
     const text = $(element).text();
     const href = $(element).attr('href');
     const linkInfo = { TEXT: text, HREF: href, FILE: file };
@@ -76,8 +79,8 @@ export function extraerLinks(html, file) {
 
 //---------------------------------------------------------
 // leer directorio y leer archivos y carpetas (recursividad)
-const archivos = [];
 export function leerDirectorio(directorio) {
+  const archivos = [];
   const intoDir = fs.readdirSync(directorio);
   if (!intoDir.length) {
     console.log(`El directorio ${directorio} esta vacio`, 15);
@@ -90,8 +93,10 @@ export function leerDirectorio(directorio) {
         archivos.push(dir); // Agregamos la ruta completa del archivo .md al arreglo de archivos
       } else if (fs.statSync(dir).isDirectory()) {
         // eslint-disable-next-line max-len
-        leerDirectorio(dir); // Llamamos recursivamente a la funcion para leer los archivos y carpetas dentro de esta carpeta
+        const archivosRecursivos = leerDirectorio(dir);
+        archivos.push(...archivosRecursivos);
       }
     });
   }
+  return archivos;
 }
