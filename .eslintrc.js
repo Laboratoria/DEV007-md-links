@@ -10,9 +10,12 @@ module.exports = {
     {
       env: {
         node: true,
+        jest: true,
       },
       files: [
         '.eslintrc.{js,cjs}',
+        '**/*.spec.js',
+        '**/*.spec.jsx',
       ],
       parserOptions: {
         sourceType: 'script',
