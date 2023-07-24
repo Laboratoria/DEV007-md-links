@@ -1,21 +1,30 @@
+//  import node modules
 const fs = require("fs");
+const path = require("path");
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
-    // identificar si la ruta existe
+    //  identify if route exists
     if (fs.existsSync(path)) {
-      // las sgtes llaves son para ejecutar alguna acción si es que existe que sería chequear y ocnvertir en absoluta
       resolve("La ruta es válida");
-      //  chequear si la ruta es archivo o directorio
-      //directorio se abre y se chequea su contenido para filtrar archivos md
-      // archivo pasa  a un array con todos los archivos md
+      //  Check type of route, only if route exists
+      const relativePath = process.argv[0];
+      //  route absolute with [0] is C:\Program Files\nodejs\node.exe
+      //  transforme in absoluteroute
+      const absolutePath = path.resolve(relativePath);
+      console.log("ruta relativa:", relativePath);
+      console.log("ruta absoluta:", absolutePath);
+      //  check if is file or directory
+      //  open directory to iterate and filter md files
+      //  md file goes to an array with de md files
     }
-    // si la ruta no existe se rechaza la promesa
+    //  reject promise if route doesnt exists
     else {
       reject("La ruta no existe");
     }
   });
 };
+//  export of function mdLinks
 module.exports = {
   mdLinks,
 };
