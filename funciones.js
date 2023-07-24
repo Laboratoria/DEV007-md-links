@@ -1,91 +1,73 @@
-/* eslint-disable max-len */
-import fs from 'fs'
-import path from 'path'
-import { marked } from 'marked'
+import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
 import * as cheerio from 'cheerio';
 // import parse5 from 'parse5'
 
 // existe la ruta
 
-export function existenciaDeLaRuta(ruta){                         
-    if (fs.existsSync(ruta)) {                              
-      console.log(`la ruta ${ruta} SI existe`, 1);
-    }else {
-      console.log(`la ruta ${ruta} NO existe`, 2);
-    }
+// eslint-disable-next-line consistent-return
+export function existenciaDeLaRuta(ruta) {
+  if (fs.existsSync(ruta)) return ruta;
 }
 
 // ruta absoluta o relativa
 
-export function rutaAbsolutaRelativa(ruta){
-    if (path.isAbsolute(ruta)) {                           
-        console.log('la ruta es absoluta', 3);
-        return ruta;
-    }else{
-        console.log('la ruta es relativa', 4);
-    }
+// eslint-disable-next-line consistent-return
+export function rutaAbsolutaRelativa(ruta) {
+  if (path.isAbsolute(ruta)) return ruta;
 }
 
 // convertir la ruta relativa a absoluta
 
-export function convirtiendoLaRutaAAbsoluta(ruta){
-    const absoluta = path.resolve(ruta);                 
-    console.log(absoluta, 5)
-    return  absoluta ;
+export function convirtiendoLaRutaAAbsoluta(ruta) {
+  return path.resolve(ruta);
 }
 
-// la ruta un archivo o un directorio
+// // la ruta un archivo o un directorio
 
-// eslint-disable-next-line max-len
-const rutaDirectorio = 'C:/Users/Acer/Desktop/LABORATORIA/MDLinks/DEV007-md-links'
-
-function rutaArchivoDirectorio(ruta){
-if (path.extname(ruta).includes('.')) {              
-    console.log('la ruta es un archivo', 6);
-}
-else{
-    console.log('la ruta es un directorio', 7);
-}
-}
+// // eslint-disable-next-line consistent-return
+// // export function rutaArchivoDirectorio(ruta) {
+// //   if (path.extname(ruta).includes('.')) return ruta;
+// // }
 
 // es un archivo .md
-export function rutaEsArchivoMD(archivo){
-    if (path.extname(archivo).includes('.md')) {
-        console.log('la ruta SI es un archivo .md', 8);
-    }else{
-    console.log('la ruta NO es un archivo .md', 9);
-    }
+// eslint-disable-next-line consistent-return
+export function rutaEsArchivoMD(archivo) {
+  if (path.extname(archivo).includes('.md')) return archivo;
 }
 
-
-// leer archivo .md 
-
-export function leerArchivoMD(archivoMD){
-    return new Promise((resolve, rej)=>{
-        fs.readFile(archivoMD, 'utf-8', (error, contenido) => {
-            resolve (contenido)
-            rej(error)
-        })
-    })
+// la ruta es un directorio
+// eslint-disable-next-line consistent-return
+export function rutaEsDirectorio(directorio) {
+  if (fs.statSync(directorio).isDirectory()) return directorio;
 }
 
+// leer archivo .md
+export function leerArchivoMD(archivoMD) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(archivoMD, 'utf-8', (error, contenido) => {
+      resolve(contenido);
+      reject(error);
+    });
+  });
+}
 // convertir archivo .md a html
 
-export function convertirAHtml(contenido){
-    const html = marked(contenido, {mangle: false, headerIds: false })
-    return html
+export function convertirAHtml(contenido) {
+  return marked(contenido, { mangle: false, headerIds: false });
 }
 
-// // extraer Links e informacion de Links de archivo Html
+// extraer Links y devolver links e informacion de Links de archivo Html
 
 export function extraerLinks(html, file) {
   const $ = cheerio.load(html);
 
   const links = [];
-  $("a").each((index, element) => {
-    const text = $(element).text(); 
-    const href = $(element).attr("href");
-    const linkInfo = { TEXT: text, HREF: href, FILE: file }; 
+  $('a').each((index, element) => {
+    const text = $(element).text();
+    const href = $(element).attr('href');
+    const linkInfo = { TEXT: text, HREF: href, FILE: file };
     links.push(linkInfo);
   });
 
@@ -94,26 +76,22 @@ export function extraerLinks(html, file) {
 
 //---------------------------------------------------------
 // leer directorio y leer archivos y carpetas (recursividad)
-const archivos = []
+const archivos = [];
 export function leerDirectorio(directorio) {
-    
-    const intoDir = fs.readdirSync(directorio);
-    if (!intoDir.length) {
-      console.log(`El directorio ${directorio} esta vacio`, 15);  
-    } else {
-        intoDir.forEach((element) => {
-            // eslint-disable-next-line max-len
-            const dir = path.join(directorio, element); // Utilizamos path.join() para obtener la ruta completa del archivo o carpeta
-            if (fs.statSync(dir).isFile() && path.extname(element).includes('.md')) {
-              archivos.push(dir); // Agregamos la ruta completa del archivo .md al arreglo de archivos
-            } else if (fs.statSync(dir).isDirectory()) {
-              leerDirectorio(dir); // Llamamos recursivamente a la funcion para leer los archivos y carpetas dentro de esta carpeta
-            }
-          });
-        }
+  const intoDir = fs.readdirSync(directorio);
+  if (!intoDir.length) {
+    console.log(`El directorio ${directorio} esta vacio`, 15);
+  } else {
+    intoDir.forEach((element) => {
+      // eslint-disable-next-line max-len
+      const dir = path.join(directorio, element); // Utilizamos path.join() para obtener la ruta completa del archivo o carpeta
+      if (fs.statSync(dir).isFile() && path.extname(element).includes('.md')) {
+        // eslint-disable-next-line max-len
+        archivos.push(dir); // Agregamos la ruta completa del archivo .md al arreglo de archivos
+      } else if (fs.statSync(dir).isDirectory()) {
+        // eslint-disable-next-line max-len
+        leerDirectorio(dir); // Llamamos recursivamente a la funcion para leer los archivos y carpetas dentro de esta carpeta
+      }
+    });
   }
-
-  leerDirectorio('C:/Users/Acer/Desktop/carpeta')
-  console.log(archivos)
-  
-
+}
