@@ -41,7 +41,8 @@ Si pasamos la opción `md-links` nos retornará instrucciones acerca de los coma
 ```
 $ md-links 
 ```
-![img](imag/instrucciones.png)
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/7246f21c-3941-4a82-a6bf-4295b30fe873)
+
 
 ## 4.Instalación
 La instalación se puede realizar por npm:
@@ -49,7 +50,6 @@ La instalación se puede realizar por npm:
 ```
 $ `npm i md-links`
 ```
-
 
  ## 5. Interfaz de Linea de Comando (CLI) ⚙️
 
@@ -64,40 +64,50 @@ $ mdLinks <path> [options]
 ```
 $ mdLinks <path>
 ```
-![img](imag/errorEnRuta.png)
-
-![img](imag/mdLinksRoute.png)
+<br>
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/21683dfd-e92b-45ef-9142-f2a1f883a95f)
+<br>
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/ed023b07-967f-40dc-becc-d791839e311a)
 
 ####  Opciones
 
-**--validate**
+**--validate**<br>
 Al ingresar el comando `md-links path --validate`el módulo hace una petición HTTP para averiguar si el link funciona o no, retonando las siguientes propiedades.
 
 ```
 $ mdLinks <path> --validate
 ```
-![img](imag/validate.png) 
+<br>
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/51178624-29e4-4045-999e-afd2f1cb3ce4)
 
-**--stats**
+**--stats** <br>
 Si pasamos la opción `--stats` el output (salida) obtenemos un texto con estadísticas básicas sobre los links, como el número total de links y links únicos.
 
 ```
 $ mdLinks <path> --stats
 ```
-![img](imag/stats.png)
+<br>
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/56eabfd4-7083-4125-91cb-36b5f3cc1af9)
 
-**--validate --stats** **--stats --validate**
+
+**--validate --stats** o **--stats --validate** <br>
 Si pasamos la opción `--validate` y `--stats` o Si pasamos la opción `--stats` y `--validate` nos retornara las estadísticas de los links totales, únicos y rotos.
 
 ```
 $ mdLinks <path> --validate --stats
 ```
-![validate](imag/validate-stats.png)
+
+```
+$ mdLinks <path>  --stats --validate
+```
+<br>
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/287f2ff9-2e02-4a00-b037-65618dcee48b)
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/f9a1a216-02d6-482d-b894-75de408bbf2b)
 
 
 
 ## 6. Diagrama de flujo
-
+<br>
 ![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
 ## 7.  Project gitHub
@@ -105,13 +115,14 @@ $ mdLinks <path> --validate --stats
 ![img](imag/project-github.png)
 
 ## 8.- Referencias utilizadas<br>
-
+<br>
 - [File-Sytem](https://nodejs.org/api/fs.html)
 - [Path module](https://www.npmjs.com/package/path) aquí esta la documentación (https://nodejs.org/api/path.html)
 - [axios]( https://www.npmjs.com/package/axios) aquí esta la documentación (https://axios-http.com/docs/intro) 
 - [chalk](https://www.npmjs.com/package/chalk) 
 - [marked](https://www.npmjs.com/package/markedy) aquí esta la documentación (https://marked.js.org/) 
 - [cheerio](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
+- [Babel](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
 
 ### **Crédito**
 <div align = "center">
