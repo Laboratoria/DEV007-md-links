@@ -50,8 +50,6 @@ La instalación se puede realizar por npm:
 $ `npm i md-links`
 ```
 
-![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/c1b7cfd6-bda3-4ac6-ab03-bf8120014525)
-
 
  ## 5. Interfaz de Linea de Comando (CLI) ⚙️
 
