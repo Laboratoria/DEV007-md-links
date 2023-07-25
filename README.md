@@ -15,7 +15,7 @@
 
 ***
 ## 1. Introducción
-Este proyecto consiste en crear una herramienta **Md-Links** que es una libreria que te permite leer y analizar archivos en formato `Markdown`, para verificar los links que contengan y reportar algunas estadísticas incluyendo si son válidos o no, con solo ingresar una ruta, además de proporcionar una herramienta de línea de comando (CLI).
+Markdown es un lenguaje de marcado que nos permite dar formato a un texto de manera rápida y sencilla. Inicialmente diseñado para facilitar la creación de contenido web sin la necesidad de utilizar HTML directamente, se ha convertido en una herramienta versátil para dar estilo a cualquier tipo de texto, independientemente de su destino.
 
 ## 2. Resumen del proyecto
 El objetivo es crear una herramienta utilizando [Node.js](https://nodejs.org/) para analizar archivos en formato Markdown y verificar los links que contienen. La herramienta proporcionará estadísticas sobre los links encontrados, como la cantidad total de links, la cantidad de links únicos y la cantidad de links rotos o no válidos.
