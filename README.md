@@ -16,7 +16,7 @@
       - [Ejemplos:](#ejemplos)
         - [mdLinks](#mdlinks)
         - [mdLinks + path](#mdlinks--path)
-        - [mdLinks + options (una o ambas)](#mdlinks--options-una-o-ambas)
+        - [mdLinks + path + options (una o ambas)](#mdlinks--path--options-una-o-ambas)
 
 ***
 
@@ -46,13 +46,12 @@ Esta herramienta de línea de comando (CLI) tiene como objetivo revisar los arch
 El ejecutable de nuestra aplicación se realiza de siguiente manera a través de la terminal:
  `mdLinks <path-to-file> [options]`
 
- `mdLinks`
-  **Con este comando comienzas a utilizar la Herramienta, te muestra una pequeña descripcion de su uso. 
+ 1.- `mdLinks`: Con este comando comienzas a utilizar la Herramienta, te muestra una pequeña descripcion de su uso. 
 
- `path`: Argumento con el cual le indicas a la herramienta la ruta del archivo que quieres revisar, esta ruta puede ser relativa o absoluta.
+ 2.- `path`: Argumento con el cual le indicas a la herramienta la ruta del archivo que quieres revisar, esta ruta puede ser relativa o absoluta.
      - Al agregar este argumento sin `options` igualmente entregara un resumen de los links de la ruta consultada. 
 
- `options`: Argumento con el cual le indicas a la herramienta si deseas evaluar ciertas caracteristicas: 
+ 3.- `options`: Argumento con el cual le indicas a la herramienta si deseas evaluar ciertas caracteristicas: 
      - `--validate`: el módulo debe hacer una petición HTTP para averiguar si el link funciona o no.
      - `--stats` : Si pasamos la opción --stats el output (salida) será un texto con estadísticas básicas sobre los links, el cual contendra Total de links, y total de links sin repetir. 
          - `--stats` + `--validate`: entregara estadistica completa en la cual se agregara broken que son los archivos rotos o no validos.
@@ -65,7 +64,7 @@ El ejecutable de nuestra aplicación se realiza de siguiente manera a través de
 ##### mdLinks + path
 ![mdLinks](images/uso2.jpg)
 
-##### mdLinks + options (una o ambas)
+##### mdLinks + path + options (una o ambas)
 ![mdLinks](images/uso3.jpg)
 ![mdLinks](images/uso4.jpg)
 ![mdLinks](images/uso5.jpg)
