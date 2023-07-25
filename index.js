@@ -3,17 +3,15 @@ const fs = require("fs"); // para los archivos
 const path = require("path"); // para las rutas
 const colors = require("colors"); // para el estilo (color)
 const axios = require("axios"); // para hacer solicitudes HTTP
-
 // Mdlink Function
 const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats: false }) => {
   return new Promise((resolve, reject) => {
     // DF 1
     // Check if the path exists.
     if (!fs.existsSync(inputPath)) {
-      reject("The path doesn't exist");
+      reject(colors.brightRed.bold("The path doesn't exist"));
       return;
     }
-
     // DF 2
     // Check if a path is absolute
     if (!path.isAbsolute(inputPath)) {
@@ -21,7 +19,6 @@ const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats
       // Convert the path to an absolute path
       inputPath = path.resolve(inputPath);
     }
-
     // DF 4
     // Check if it is a directory and read it
     const isDirectory = fs.statSync(inputPath).isDirectory();
@@ -44,7 +41,6 @@ const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats
         });
         return Promise.all(promises);
       };
-
       getMdFiles(inputPath)
         .then((links) => {
           const allLinks = links.flat();
@@ -57,40 +53,39 @@ const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats
         })
         .then((result) => {
           if (options.stats && options.validate) {
-            printValidateAndStats(result, resolve);
+            printStatsAndResolve(result, resolve);
           } else if (options.stats) {
-            printStats(result);
+            printStats(result, resolve);
           } else if (options.validate) {
             resolve(result);
           } else {
             resolve(result);
-          } 
+          }
         })
         .catch((error) => {
           reject(error);
         });
-      } else if (path.extname(inputPath) === ".md"){ 
-        readMarkdownFile(inputPath, options)
-          .then((links) => {
-            if (options.stats && options.validate) {
-              printValidateAndStats(result, resolve);
-            } else if (options.stats && !options.validate) {
-              printStats(links);
-            } else if (options.validate) {
-              resolve(result);
-            } else {
-              resolve(links);
-            }
-          }) 
-          .catch((error) => {
-            reject(error);
-          });
-      } else {
-        reject("The path does not exist .md file");
-      }
-    });
-  };
-
+    } else if (path.extname(inputPath) === ".md") {
+      readMarkdownFile(inputPath, options)
+        .then((links) => {
+          if (options.stats && options.validate) {
+            printStatsWithBroken(links);
+          } else if (options.stats && !options.validate) {
+            printStats(links);
+          } else if (options.validate) {
+            resolve(links);
+          } else {
+            resolve(links);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    } else {
+      reject("The path does not exist .md file");
+    }
+  });
+};
 // DF 7 read md.links
 const readMarkdownFile = (filePath, options) => {
   return new Promise((resolve, reject) => {
@@ -103,11 +98,9 @@ const readMarkdownFile = (filePath, options) => {
       // ciclo de busqueda de links con el metodo .exec
       const text = match[1];
       const href = match[2];
-      // links.push({ text, href }); // pucheo cada link en mi arreglo
       links.push({ text, href, file: filePath }); // pucheo cada link en mi arreglo
     }
     // console.log(links);
-
     // DF 8
     const filteredLinks = links.filter((link) => !/\d+/.test(link.text)); // dejo o filtro los enlaces quitando los que tienen números
     // console.log(filteredLinks);
@@ -116,6 +109,7 @@ const readMarkdownFile = (filePath, options) => {
       Promise.all(linkPromises)
         .then((validatedLinks) => {
           if (options.stats) {  // Stats
+            resolve(validatedLinks);
             printStatsWithBroken(validatedLinks);
           } else {
             resolve(validatedLinks);
@@ -131,7 +125,11 @@ const readMarkdownFile = (filePath, options) => {
     }
   });
 };
-
+// Helper function to print stats and resolve the validated links
+const printStatsAndResolve = (links, resolve) => {
+  resolve(links);
+  printStatsWithBroken(links);
+};
 // DF 8 Validate links
 const validateLink = (link) => {
   return new Promise((resolve, reject) => {
@@ -148,6 +146,12 @@ const validateLink = (link) => {
         resolve(link);
       });
   });
+};
+
+// DF 11 PrintStats Functions
+const printStats = (links) => {
+  const stats = statsLinks(links);
+  console.log(colors.blue(`Total: ${stats.Total}, Unique: ${stats.Unique}`));
 };
 
 // DF 9 StatsLinks Function
@@ -168,29 +172,40 @@ const statsValidatelinks = (links) => {
   };
 };
 
-// DF 11 PrintStats Functions
-const printStats = (links) => {
-  const stats = statsLinks(links);
-  console.log(`Total: ${stats.Total}`);
-  console.log(`Unique: ${stats.Unique}`);
-};
 
-const printStatsWithBroken = (links) => {
+
+tsWithBroken = (links) => {
   const stats = statsValidatelinks(links);
-  console.log(`Total: ${stats.Total}`);
-  console.log(`Unique: ${stats.Unique}`);
-  console.log(`Broken: ${stats.Broken}`);
+  return stats;
+  //console.log(`Total: ${stats.Total}`);
+  //console.log(`Unique: ${stats.Unique}`);
+  //console.log(`Broken: ${stats.Broken}`);
 };
-
-//
- const printValidateAndStats = (links, resolve) => {
-  resolve(links);
-  printStatsWithBroken(links);
- }
-
 module.exports = {
   mdLinks,
   statsLinks,
   statsValidatelinks,
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
