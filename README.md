@@ -34,8 +34,7 @@ Con esta herramienta, los desarrolladores podrán mantener sus archivos Markdown
 
 ## 4. Diagrama de flujo
 
-![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/25b1c178-b26f-4ca8-80f7-f88b5d40e5f9)
-
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/c1b7cfd6-bda3-4ac6-ab03-bf8120014525)
 
 
 ### 5. Comados
