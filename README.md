@@ -6,7 +6,7 @@
 
 * [1. Introducción](#1-Introducción)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Instalación](#3-instalacion)
+* [3. Instrucciones de uso](#3-Instrucciones-de-uso)
 * [4. Instalación](#4-Instalación)
 * [5-Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI))
 * [6. Diagrama de flujo](#5-Diagrama-de-flujo)
