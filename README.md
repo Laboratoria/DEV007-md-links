@@ -7,8 +7,12 @@
 * [1. Introducción](#1-Introducción)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instalación](#3-instalacion)
-* [4. Diagrama de flujo](#4-diagrama-de-flujo)
-* [5. Comandos](#5-comandos)
+* [4. Instalación](#4-Instalación)
+* [5. Interfaz de Linea de Comando (CLI)](#5-Interfaz de Linea de Comando (CLI))
+* [6. Diagrama de flujo](#5-Diagrama de flujo)
+* [7. Project gitHubs](#7-Project gitHub)
+* [8. Referencias utilizada](#8-Referencias utilizada)
+
 
 ***
 ## 1. Introducción
@@ -28,21 +32,29 @@ Si se proporciona la opción --validate, verificar la validez de cada link reali
 Mostrar los resultados en la consola, incluyendo los links encontrados y las estadísticas (cantidad total, cantidad de links únicos y cantidad de links rotos).
 Con esta herramienta, los desarrolladores podrán mantener sus archivos Markdown actualizados y corregir cualquier link roto, lo que mejorará la confiabilidad y utilidad de la documentación y la información compartida en su comunidad de código abierto.
 
- ## 3.Instrucciones de uso
+## 3.Instrucciones de uso
 
- Las siguientes instrucciones le permitirán instalar la biblioteca en su terminal.
-## 4. Instalación
+Las siguientes instrucciones le permitirán instalar la librería en su terminal.
+
+**md-links**
+Si pasamos la opción `md-links` nos retornará instrucciones acerca de los comandos.
+
+```
+$ md-links 
+```
+![img](imag/instrucciones.png)
+
+## 4.Instalación
 La instalación se puede realizar por npm:
-
 
 ```
 $ `npm i md-links`
 ```
 
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/c1b7cfd6-bda3-4ac6-ab03-bf8120014525)
->>>>>>> main
 
- ### 4.2 Interfaz de Linea de Comando (CLI) ⚙️
+
+ ## 5. Interfaz de Linea de Comando (CLI) ⚙️
 
 Se ejecuta de la siguiente manera a través del terminal:
 
@@ -59,7 +71,7 @@ $ mdLinks <path>
 
 ![img](imag/mdLinksRoute.png)
 
-#### 2.2.1 Opciones
+####  Opciones
 
 **--validate**
 Al ingresar el comando `md-links path --validate`el módulo hace una petición HTTP para averiguar si el link funciona o no, retonando las siguientes propiedades.
@@ -85,23 +97,17 @@ $ mdLinks <path> --validate --stats
 ```
 ![validate](imag/validate-stats.png)
 
-**md-links**
-Si pasamos la opción `md-links` nos retornará instrucciones acerca de los comandos.
 
-```
-$ md-links 
-```
-![img](imag/instrucciones.png)
 
-## 5. Diagrama de flujo
+## 6. Diagrama de flujo
 
 ![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
-## 6.  Project gitHub
+## 7.  Project gitHub
 
 ![img](imag/project-github.png)
 
-### 7.- Referencias utilizadas<br>
+## 8.- Referencias utilizadas<br>
 
 - [File-Sytem](https://nodejs.org/api/fs.html)
 - [Path module](https://www.npmjs.com/package/path) aquí esta la documentación (https://nodejs.org/api/path.html)
@@ -110,8 +116,7 @@ $ md-links
 - [marked](https://www.npmjs.com/package/markedy) aquí esta la documentación (https://marked.js.org/) 
 - [cheerio](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
 
-### 8.- Crédito
-
+### Crédito
 <div align = "center">
   <!-- Gmail -->
   <a href="mailto:yanettr2023@gmail.com" target="_blank">
