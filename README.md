@@ -8,11 +8,10 @@
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instalación](#3-instalacion)
 * [4. Instalación](#4-Instalación)
-* [5. Interfaz de Linea de Comando (CLI)](#5-Interfaz de Linea de Comando (CLI))
-* [6. Diagrama de flujo](#5-Diagrama de flujo)
-* [7. Project gitHubs](#7-Project gitHub)
-* [8. Referencias utilizada](#8-Referencias utilizada)
-
+* [5-Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI))
+* [6. Diagrama de flujo](#5-Diagrama-de-flujo)
+* [7. Project gitHubs](#7-Project-gitHub)
+* [8. Referencias utilizada](#8-Referencias-utilizadas)
 
 ***
 ## 1. Introducción
@@ -116,7 +115,7 @@ $ mdLinks <path> --validate --stats
 - [marked](https://www.npmjs.com/package/markedy) aquí esta la documentación (https://marked.js.org/) 
 - [cheerio](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
 
-### Crédito
+### **Crédito**
 <div align = "center">
   <!-- Gmail -->
   <a href="mailto:yanettr2023@gmail.com" target="_blank">
