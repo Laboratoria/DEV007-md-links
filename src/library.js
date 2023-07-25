@@ -17,7 +17,7 @@ const validatePath = (filePath) => {
 };
 
 // Validar si es un archivo Markdown (.md)
-const isMD = (filePath) => {
+const fileMd = (filePath) => {
   return path.extname(filePath) === ".md";
 };
 
@@ -104,6 +104,7 @@ function extractLinksFromFile(filePath, validate) {
     }
   });
 }
+
 //la ruta de un directorio y se encarga de extraer todos link archivos Markdown.
 function extractLinksFromDirectory(directoryPath, validate) {
   return fs.readdir(directoryPath).then((filesArray) => {
@@ -112,7 +113,7 @@ function extractLinksFromDirectory(directoryPath, validate) {
       return fs.stat(filePath).then((metadata) => {
         if (metadata.isDirectory()) {
           return extractLinksFromDirectory(filePath, validate);
-        } else if (metadata.isFile() && isMD(file)) {
+        } else if (metadata.isFile() && fileMd(file)) {
           return extractLinksFromFile(filePath, validate);
         } else {
           return Promise.resolve([]);
@@ -133,7 +134,7 @@ const mdLinks = (options, filePath) => {
           extractLinksFromDirectory(absolutePath, options.validate)
             .then((linksArray) => resolve(linksArray,absolutePath))
             .catch((err) => reject(err));
-        } else if (metadata.isFile() && isMD(absolutePath)) {
+        } else if (metadata.isFile() && fileMd(absolutePath)) {
           extractLinksFromFile(absolutePath, options.validate)
             .then((linksArray) => resolve(linksArray,absolutePath))
             .catch((err) => reject(err));
@@ -150,9 +151,9 @@ const mdLinks = (options, filePath) => {
 // Se exporta la función mdLinks para que pueda ser utilizada desde otro archivo.
 export {
   mdLinks,
-  extractLinksFromFile,
-  validateLinks,
   countLinks,
+  extractLinksFromFile,
+  extractLinksFromDirectory
 };
 
 

@@ -34,9 +34,7 @@ Con esta herramienta, los desarrolladores podrán mantener sus archivos Markdown
 ## 4. Instalación
 La instalación se puede realizar por npm:
 
-```
-$ `npm i md-links`
-```
+
 
  ### 4.2 Interfaz de Linea de Comando (CLI) ⚙️
 
