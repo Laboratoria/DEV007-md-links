@@ -1,21 +1,27 @@
 {
-  "name": "@danilarat/md-links",
-  "version": "0.1.0",
+  "name": "danilarat_md-links",
+  "version": "0.1.4",
   "description": "herramienta de línea de comando (CLI) así como tu propia librería (o biblioteca - library) en JavaScript.",
+  "main": "index.js",
+  "bin": {
+    "mdLinks": "cli.js"
+  },
   "engines": {
     "node": ">=16.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DaniLaraT/DEV007-md-links"
+    "url": "git+https://github.com/DaniLaraT/DEV007-md-links"
   },
+
   "bootcamp": {
     "createdAt": "2023-06-20T14:05:58.211Z",
     "version": "6.3.0",
     "commit": "e129ade681adff8cbb19f82e63f688fef2f08f32"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "start": "node cli.js"
   },
   "dependencies": {
     "axios": "^1.4.0",
