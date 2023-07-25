@@ -1,7 +1,9 @@
+/* eslint-disable max-len */
 import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
 import * as cheerio from 'cheerio';
+import { arch } from 'os';
 // import parse5 from 'parse5'
 
 // existe la ruta
@@ -78,7 +80,8 @@ export function extraerLinks(html, file) {
 }
 
 //---------------------------------------------------------
-// leer directorio y leer archivos y carpetas (recursividad)
+// eslint-disable-next-line max-len
+// leer directorio y leer archivos y carpetas (recursividad), entregar array archivos .md
 export function leerDirectorio(directorio) {
   const archivos = [];
   const intoDir = fs.readdirSync(directorio);

@@ -19,13 +19,13 @@ export default function mdLinks(path, options) {
         ? path
         : convirtiendoLaRutaAAbsoluta(path);
       if (rutaEsArchivoMD(pathToWork)) {
-        console.log('La ruta corresponde a un Archivo .md');
+        // console.log('La ruta corresponde a un Archivo .md');
         leerArchivoMD(pathToWork)
           .then((contenido) => {
-            console.log(contenido);
+            // console.log(contenido);
             const html = convertirAHtml(contenido);
-            console.log(html);
-            console.log(extraerLinks(html, pathToWork));
+            // console.log(html);
+            console.log(extraerLinks(html, pathToWork), 56);
           })
           .catch((error) => {
             console.log(error);
@@ -35,6 +35,21 @@ export default function mdLinks(path, options) {
         console.log(pathToWork);
         console.log('La ruta corresponde a un Directorio');
         const archivosDirectorio = leerDirectorio(pathToWork);
+        archivosDirectorio.forEach((archivo) => {
+          leerArchivoMD(archivo)
+            .then((contenido) => {
+              const html = convertirAHtml(contenido);
+              const links = extraerLinks(html, archivo);
+              if (links.length > 0) {
+                console.log(extraerLinks(html, archivo));
+              } else {
+                console.log('no se han encontrado archivos');
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
         resolve(archivosDirectorio);
       }
       reject('La ruta no es un Archivo .md ni un directorio.');
@@ -44,7 +59,9 @@ export default function mdLinks(path, options) {
   });
 }
 
-mdLinks('C:/Users/Acer/Desktop/carpeta')
+mdLinks(
+  'C:/Users/Acer/Desktop/LABORATORIA/MDLinks/DEV007-md-links/DirectorioPrueba',
+)
   .then((result) => {
     console.log(result);
   })
