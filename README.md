@@ -124,7 +124,10 @@ $ mdLinks <path>  --stats --validate
 - [cheerio](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
 - [Babel](https://babeljs.io/setup#installation) 
 
-### **Crédito**
+### **Realizado por :**
+```
+  YanettrDEV007
+```
 <div align = "center">
   <!-- Gmail -->
   <a href="mailto:yanettr2023@gmail.com" target="_blank">
