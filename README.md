@@ -122,7 +122,7 @@ $ mdLinks <path>  --stats --validate
 - [chalk](https://www.npmjs.com/package/chalk) 
 - [marked](https://www.npmjs.com/package/markedy) aquí esta la documentación (https://marked.js.org/) 
 - [cheerio](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
-- [Babel](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
+- [Babel](https://babeljs.io/setup#installation) 
 
 ### **Crédito**
 <div align = "center">
