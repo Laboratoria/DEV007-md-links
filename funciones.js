@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
 import * as cheerio from 'cheerio';
-import { arch } from 'os';
+import axios from 'axios';
 // import parse5 from 'parse5'
 
 // existe la ruta
@@ -102,4 +102,32 @@ export function leerDirectorio(directorio) {
     });
   }
   return archivos;
+}
+
+// validar links y devolver arreglo de objetos con la informacion de cada link validada
+export async function validarLinks(links) {
+  const requests = links.map(async (link) => {
+    try {
+      const response = await axios.head(link.HREF);
+      return {
+        href: link.HREF,
+        text: link.TEXT,
+        file: link.FILE,
+        status: response.status,
+        ok: 'ok',
+      };
+    } catch (error) {
+      return {
+        href: link.HREF,
+        text: link.TEXT,
+        file: link.FILE,
+        status: error.response ? error.response.status : 0,
+        ok: 'fail',
+      };
+    }
+  });
+
+  const results = await Promise.all(requests);
+  console.log(results);
+  return results;
 }

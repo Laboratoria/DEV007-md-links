@@ -10,6 +10,7 @@ import {
   convertirAHtml,
   extraerLinks,
   leerDirectorio,
+  validarLinks,
 } from './funciones.js';
 
 export default function mdLinks(path, options) {
@@ -25,7 +26,14 @@ export default function mdLinks(path, options) {
             // console.log(contenido);
             const html = convertirAHtml(contenido);
             // console.log(html);
-            console.log(extraerLinks(html, pathToWork), 56);
+            const links = extraerLinks(html, pathToWork);
+            if (links.length > 0 && options.validate) {
+              validarLinks(links);
+            } else if (links.length > 0 && !options.validate) {
+              console.log(links);
+            } else {
+              console.log('No se encontraron Links');
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -35,22 +43,20 @@ export default function mdLinks(path, options) {
         console.log(pathToWork);
         console.log('La ruta corresponde a un Directorio');
         const archivosDirectorio = leerDirectorio(pathToWork);
+        const allLinks = [];
         archivosDirectorio.forEach((archivo) => {
           leerArchivoMD(archivo)
             .then((contenido) => {
               const html = convertirAHtml(contenido);
               const links = extraerLinks(html, archivo);
-              if (links.length > 0) {
-                console.log(extraerLinks(html, archivo));
-              } else {
-                console.log('no se han encontrado archivos');
-              }
+              allLinks.push(links);
+              console.log(allLinks.flat(), 22);
             })
             .catch((error) => {
               console.log(error);
             });
         });
-        resolve(archivosDirectorio);
+        resolve(allLinks.flat());
       }
       reject('La ruta no es un Archivo .md ni un directorio.');
     }
@@ -59,9 +65,7 @@ export default function mdLinks(path, options) {
   });
 }
 
-mdLinks(
-  'C:/Users/Acer/Desktop/LABORATORIA/MDLinks/DEV007-md-links/DirectorioPrueba',
-)
+mdLinks('DirectorioPrueba', { validate: false })
   .then((result) => {
     console.log(result);
   })
@@ -75,3 +79,5 @@ mdLinks(
 // ruta RELATIVA DIRECTORIO 'DirectorioPrueba'
 // ruta ABSOLUTA DIRECTORIO 'C:/Users/Acer/Desktop/LABORATORIA/MDLinks/DEV007-md-links/DirectorioPrueba'
 // ruta absoluta fuera de proyecto mdLinks 'C:/Users/Acer/Desktop/carpeta'
+
+//options --validate --start
