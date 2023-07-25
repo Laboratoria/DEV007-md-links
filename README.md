@@ -34,7 +34,13 @@ Con esta herramienta, los desarrolladores podrán mantener sus archivos Markdown
 ## 4. Instalación
 La instalación se puede realizar por npm:
 
-
+<<<<<<< readme
+```
+$ `npm i md-links`
+```
+=======
+![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/c1b7cfd6-bda3-4ac6-ab03-bf8120014525)
+>>>>>>> main
 
  ### 4.2 Interfaz de Linea de Comando (CLI) ⚙️
 
@@ -91,7 +97,7 @@ $ md-links
 
 ![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
-## 5. Diagrama de flujo
+## 6.  Project gitHub
 
 ![img](imag/project-github.png)
 
@@ -105,7 +111,7 @@ $ md-links
 - [cheerio](https://www.npmjs.com/package/cheerio) aquí esta la documentación (https://cheerio.js.org/docs/intro)
 
 ### 8.- Crédito
-<br />
+
 <div align = "center">
   <!-- Gmail -->
   <a href="mailto:yanettr2023@gmail.com" target="_blank">
@@ -118,7 +124,3 @@ $ md-links
           src="https://img.shields.io/badge/-Linkedin-0A66C2?style=flat-square&logo=Linkedin&logoColor=white">
   </a>	  	  
 </div>
-<br />
-
-
-
