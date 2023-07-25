@@ -64,9 +64,9 @@ $ mdLinks <path> [options]
 ```
 $ mdLinks <path>
 ```
-<br>
+
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/21683dfd-e92b-45ef-9142-f2a1f883a95f)
-<br>
+
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/ed023b07-967f-40dc-becc-d791839e311a)
 
 ####  Opciones
@@ -77,7 +77,7 @@ Al ingresar el comando `md-links path --validate`el módulo hace una petición H
 ```
 $ mdLinks <path> --validate
 ```
-<br>
+
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/51178624-29e4-4045-999e-afd2f1cb3ce4)
 
 **--stats** <br>
@@ -86,7 +86,7 @@ Si pasamos la opción `--stats` el output (salida) obtenemos un texto con estad�
 ```
 $ mdLinks <path> --stats
 ```
-<br>
+
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/56eabfd4-7083-4125-91cb-36b5f3cc1af9)
 
 
@@ -100,14 +100,14 @@ $ mdLinks <path> --validate --stats
 ```
 $ mdLinks <path>  --stats --validate
 ```
-<br>
+
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/287f2ff9-2e02-4a00-b037-65618dcee48b)
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/f9a1a216-02d6-482d-b894-75de408bbf2b)
 
 
 
 ## 6. Diagrama de flujo
-<br>
+
 ![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
 ## 7.  Project gitHub
@@ -115,7 +115,7 @@ $ mdLinks <path>  --stats --validate
 ![img](imag/project-github.png)
 
 ## 8.- Referencias utilizadas<br>
-<br>
+
 - [File-Sytem](https://nodejs.org/api/fs.html)
 - [Path module](https://www.npmjs.com/package/path) aquí esta la documentación (https://nodejs.org/api/path.html)
 - [axios]( https://www.npmjs.com/package/axios) aquí esta la documentación (https://axios-http.com/docs/intro) 
