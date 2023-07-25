@@ -1,15 +1,5 @@
 # Tarjeta de crédito válida
 
-## Índice
-
-* [1. Resumen general](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Recursos utilizados](#3-consideraciones-generales)
-* [4. Descripción del Proyecto](#4-hito-criterios-de-aceptación-mínimos-del-proyecto)
-* [5. Check list a considerar Project Feedback](#5-hito-opcional-mostrar-la-franquicia-de-tarjeta)
-* [6. El equipo de trabajo](#6-consideraciones-técnicas)
-
-***
 
 ## 1. Resumen general
 
@@ -85,80 +75,3 @@ tarjeta es válida, mostrar la [franquicia](https://es.wikipedia.org/wiki/N%C3%B
 de la tarjeta (ej: Visa, MasterCard, etc)
 usando estas [reglas de validación](https://stevemorse.org/ssn/cc.html).
 Si escribes un nuevo método para eso, hay que hacer pruebas unitarias.
-
-**Planificación del desarrollo del proyecto**
-
-El proyecto se desarolla en 2 spring, divididos de la siguente forma:
-
-**Spring 1:**
-* Planificacion del Spring 1, actividades generales y tareas. 
-* Diseño de Imagen y protoripo.
-* Desarrollo HTLM
-**Spring 2:**
-* Planificacion del Spring 2, actividades generales y tareas. 
-* Diseño CCS
-* Desarrollo JS, isvalid.....Completar
-* Inicio del readme
-
-**Spring 3:**
-* Planificacion del Spring 2, actividades generales y tareas. 
-* Diseño CCS.
-* Desarrollo JS, maskify          
-* Realizacion del Readme
-* Test                           
-* Cargue del proyecto a Github
-* Presentación del Proyecto.
-
-**Prototipo**
-Plantilla del diseño de Imagen:
-
-Imagen del Prototipo:
-C:\Users\usuario\Desktop\CLLP---DEV007-card-validation\Img Readme\Diseño.jpg
-
-Las partes opcionales tienen como intención permitirte profundizar un poco más
-sobre los objetivos de aprendizaje del proyecto. Todo en la vida tiene pros y
-
-
-**El proyecto**
-
-* Imagen de la web
-* Demostración
-* Descrioción de los archivos
-* `README.md`: explica la información necesaria para el uso de tu aplicación
-  web, así como una introducción a la aplicación, su funcionalidad y decisiones de
-  diseño que tomaron.
-* `src/index.html`: punto de entrada a tu aplicación. Este archivo
-  debe contiene HTML e incluye el CSS y JavaScript necesario.
-* `src/style.css`: este archivo contiene las reglas de estilo. 
-* `src/validator.js`: impementación del objeto validator y contiene dos
-  métodos utilizados:
-  - validator.isValid(cardNumber): contiene el algopritmo Luhn a trasvés del cual se
-     cverifica el número de tarjeta.
-  - validator.maskify(cardNumber):en elñ cual con el número de tarjeta se retornar 
-    todos menos los últimos cuatro caracteres enmascarados.
-* `src/index.js`: acá debes escuchar eventos del DOM, invocar
-  validator.isValid() y validator.maskify().
-* `test/validator.spec.js`: contiene algunos tests de ejemplo.
-
-## 6. Check list a considerar Project Feedback
-En resumen, los criterios de aceptación mínimos del proyecto para considerar
-Project Feedback:
-
-* [ ] Tiene una interfaz que permite a la usuaria saber si la tarjeta es valido
-  y ocultar el numero hasta las 4 ultimos digitos.
-* [ ] El proyecto será entregado incluyendo pruebas unitarios de los métodos de
-  validator (isValid y maskify).
-* [ ] El proyecto será entregado libre de _errores_ de eslint (_warnings_ son ok).
-* [ ] El proyecto será entregado subiendo tu código a GitHub.
-* [ ] La interfaz será "desplegada" usando GitHub Pages.
-* [ ] El README contiene una definición del producto
-
-## 7. El equipo de trabajo.
-
-El presente proyecto fué desarollado de forma individual con el apoyo del grupo de coach de Laboratoria, 
-el apoyo entre las compañeras de squad y el apoyo espacial de la compañera de preadmisión.
-
-Desarollado y presentado por: Carmen Luna, mamá e Ingeniero Mecánico y estudiante del DEV007 de Laboratoría.
-
-
-   ## “El único lugar donde el éxito viene antes del trabajo es en el diccionario”. *Donald Kendall*
