@@ -26,13 +26,6 @@ export function convirtiendoLaRutaAAbsoluta(ruta) {
   return path.resolve(ruta);
 }
 
-// // la ruta un archivo o un directorio
-
-// // eslint-disable-next-line consistent-return
-// // export function rutaArchivoDirectorio(ruta) {
-// //   if (path.extname(ruta).includes('.')) return ruta;
-// // }
-
 // es un archivo .md
 // eslint-disable-next-line consistent-return
 export function rutaEsArchivoMD(archivo) {
@@ -85,9 +78,7 @@ export function extraerLinks(html, file) {
 export function leerDirectorio(directorio) {
   const archivos = [];
   const intoDir = fs.readdirSync(directorio);
-  if (!intoDir.length) {
-    console.log(`El directorio ${directorio} esta vacio`, 15);
-  } else {
+  if (intoDir.length) {
     intoDir.forEach((element) => {
       // eslint-disable-next-line max-len
       const dir = path.join(directorio, element); // Utilizamos path.join() para obtener la ruta completa del archivo o carpeta
@@ -100,8 +91,9 @@ export function leerDirectorio(directorio) {
         archivos.push(...archivosRecursivos);
       }
     });
+    return archivos;
   }
-  return archivos;
+  return false;
 }
 
 // validar links y devolver arreglo de objetos con la informacion de cada link validada
@@ -130,4 +122,26 @@ export async function validarLinks(links) {
   const results = await Promise.all(requests);
   console.log(results);
   return results;
+}
+
+// Estadisticas Links
+export function estadisticas(arrayLinks) {
+  const linksMap = new Map();
+  let broken = 0;
+  arrayLinks.forEach((link) => {
+    if (link.ok === 'fail') {
+      broken += 1;
+    }
+
+    linksMap.set(link.href, link);
+  });
+
+  const total = arrayLinks.length;
+  const unique = linksMap.size;
+
+  const objetoEstadisticas = arrayLinks[0].ok
+    ? { TOTAL: total, UNIQUE: unique, BROKEN: broken }
+    : { TOTAL: total, UNIQUE: unique };
+  console.log(objetoEstadisticas);
+  return objetoEstadisticas;
 }

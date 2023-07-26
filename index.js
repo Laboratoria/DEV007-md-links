@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable max-len */
 import {
@@ -11,6 +13,7 @@ import {
   extraerLinks,
   leerDirectorio,
   validarLinks,
+  estadisticas,
 } from './funciones.js';
 
 export default function mdLinks(path, options) {
@@ -20,7 +23,7 @@ export default function mdLinks(path, options) {
         ? path
         : convirtiendoLaRutaAAbsoluta(path);
       if (rutaEsArchivoMD(pathToWork)) {
-        // console.log('La ruta corresponde a un Archivo .md');
+        console.log('La ruta corresponde a un Archivo .md');
         leerArchivoMD(pathToWork)
           .then((contenido) => {
             // console.log(contenido);
@@ -28,50 +31,72 @@ export default function mdLinks(path, options) {
             // console.log(html);
             const links = extraerLinks(html, pathToWork);
             if (links.length > 0 && options.validate) {
-              validarLinks(links);
+              validarLinks(links).then((linksValidate) => {
+                if (options.stats) {
+                  estadisticas(linksValidate);
+                }
+              });
             } else if (links.length > 0 && !options.validate) {
               console.log(links);
+              if (options.stats) {
+                estadisticas(links);
+              }
             } else {
-              console.log('No se encontraron Links');
+              reject('No se encontraron Links');
             }
           })
           .catch((error) => {
             console.log(error);
           });
-        resolve(pathToWork);
       } else if (rutaEsDirectorio(pathToWork)) {
         console.log(pathToWork);
         console.log('La ruta corresponde a un Directorio');
         const archivosDirectorio = leerDirectorio(pathToWork);
-        const allLinks = [];
-        archivosDirectorio.forEach((archivo) => {
-          leerArchivoMD(archivo)
-            .then((contenido) => {
-              const html = convertirAHtml(contenido);
-              const links = extraerLinks(html, archivo);
-              allLinks.push(links);
-              console.log(allLinks.flat(), 22);
-            })
-            .catch((error) => {
-              console.log(error);
+        if (archivosDirectorio) {
+          if (archivosDirectorio.length) {
+            const allLinks = [];
+            const promises = archivosDirectorio.map((archivo) =>
+              leerArchivoMD(archivo)
+                .then((contenido) => {
+                  const html = convertirAHtml(contenido);
+                  const links = extraerLinks(html, archivo);
+                  allLinks.push(links);
+                })
+                .catch((error) => {
+                  console.log(error);
+                }),
+            );
+            Promise.all(promises).then(() => {
+              const links = allLinks.flat();
+              if (links.length > 0 && options.validate) {
+                validarLinks(links).then((linksValidate) => {
+                  if (options.stats) {
+                    estadisticas(linksValidate);
+                  }
+                });
+              } else if (links.length > 0 && !options.validate) {
+                console.log(links);
+                if (options.stats) {
+                  estadisticas(links);
+                }
+              } else {
+                reject('No se encontraron Links');
+              }
             });
-        });
-        resolve(allLinks.flat());
+          } else {
+            console.log('No se encontraron archivos .md');
+          }
+        } else {
+          reject('El directorio esta vacio');
+        }
+      } else {
+        reject('La ruta no es un Archivo .md ni un directorio.');
       }
-      reject('La ruta no es un Archivo .md ni un directorio.');
+    } else {
+      reject('La ruta no existe.');
     }
-
-    reject('La ruta no existe.');
   });
 }
-
-mdLinks('DirectorioPrueba', { validate: false })
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 
 // ruta absoluta 'C:/Users/Acer/Desktop/LABORATORIA/MDLinks/DEV007-md-links/READMEE.md'
 // ruta relativa 'READMEE.md'
@@ -80,4 +105,4 @@ mdLinks('DirectorioPrueba', { validate: false })
 // ruta ABSOLUTA DIRECTORIO 'C:/Users/Acer/Desktop/LABORATORIA/MDLinks/DEV007-md-links/DirectorioPrueba'
 // ruta absoluta fuera de proyecto mdLinks 'C:/Users/Acer/Desktop/carpeta'
 
-//options --validate --start
+// options --validate --start
