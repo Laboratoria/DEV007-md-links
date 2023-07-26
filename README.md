@@ -1,6 +1,6 @@
 ![Image](https://user-images.githubusercontent.com/129693341/250697163-be9c92fd-7dc7-4d07-8520-e0e71d4159aa.png)
 
-# md-linkyan
+# MD-Linkyan
 
 ## Índice
 
@@ -8,8 +8,9 @@
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instrucciones de uso](#3-Instrucciones-de-uso)
 * [4. Instalación](#4-Instalación)
-* [5. Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI)
-* [6. Referencias utilizada](#7-Referencias-utilizadas)
+* [5. Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI))
+* [6. Diagrama de flujo](#5-Diagrama-de-flujo)
+* [7. Referencias utilizada](#7-Referencias-utilizadas)
 
 ***
 ## 1. Introducción
@@ -19,7 +20,6 @@ Markdown es un lenguaje de marcado que nos permite dar formato a un texto de man
 El objetivo es crear una herramienta utilizando [Node.js](https://nodejs.org/) para analizar archivos en formato Markdown y verificar los links que contienen. La herramienta proporcionará estadísticas sobre los links encontrados, como la cantidad total de links, la cantidad de links únicos y la cantidad de links rotos o no válidos.
 
 Esta herramienta será útil para desarrolladores y comunidades de código abierto, ya que les permitirá identificar y corregir los links rotos en sus archivos Markdown, lo que mejorará la calidad y utilidad de la información compartida en plataformas como GitHub, foros y blogs.
-
 
 ## 3.Instrucciones de uso
 
@@ -32,7 +32,6 @@ Si pasamos la opción `md-links` nos retornará instrucciones acerca de los coma
 $ md-links 
 ```
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/7246f21c-3941-4a82-a6bf-4295b30fe873)
-
 
 ## 4.Instalación
 La instalación se puede realizar por npm:
@@ -80,7 +79,6 @@ $ md-links <path> --stats
 
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/56eabfd4-7083-4125-91cb-36b5f3cc1af9)
 
-
 **--validate --stats** o **--stats --validate** <br>
 Si pasamos la opción `--validate` y `--stats` o Si pasamos la opción `--stats` y `--validate` nos retornara las estadísticas de los links totales, únicos y rotos.
 
@@ -95,7 +93,16 @@ $ md-links <path>  --stats --validate
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/287f2ff9-2e02-4a00-b037-65618dcee48b)
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/f9a1a216-02d6-482d-b894-75de408bbf2b)
 
-## 6. Referencias utilizadas<br>
+
+## 6. Diagrama de flujo
+
+![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
+
+### **Project gitHub**
+  ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/81ae8aea-35d9-4515-876d-3f906b5f7821)
+
+    
+## 7. Referencias utilizadas<br>
 
 - [File-Sytem](https://nodejs.org/api/fs.html)
 - [Path module](https://www.npmjs.com/package/path) aquí esta la documentación (https://nodejs.org/api/path.html)
@@ -119,5 +126,5 @@ $ md-links <path>  --stats --validate
   <a href="https://www.linkedin.com/in/yanet-toribio/" target="_blank">
     <img alt="Linkedin"
           src="https://img.shields.io/badge/-Linkedin-0A66C2?style=flat-square&logo=Linkedin&logoColor=white">
-  </a>	  	  
+  </a>        
 </div>
