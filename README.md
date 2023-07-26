@@ -8,9 +8,8 @@
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instrucciones de uso](#3-Instrucciones-de-uso)
 * [4. Instalación](#4-Instalación)
-* [5. Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI))
-* [6. Diagrama de flujo](#5-Diagrama-de-flujo)
-* [7. Referencias utilizada](#7-Referencias-utilizadas)
+* [5. Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI)
+* [6. Referencias utilizada](#7-Referencias-utilizadas)
 
 ***
 ## 1. Introducción
@@ -43,7 +42,7 @@ $ npm i md-linksyan
 
 ```
 
- ## 5. Interfaz de Linea de Comando (CLI) ⚙️
+ ## 5. Interfaz de Linea de Comando (CLI) 
 
 Se ejecuta de la siguiente manera a través del terminal:
 
@@ -96,14 +95,7 @@ $ md-links <path>  --stats --validate
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/287f2ff9-2e02-4a00-b037-65618dcee48b)
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/f9a1a216-02d6-482d-b894-75de408bbf2b)
 
-
-
-## 6. Diagrama de flujo
-
-![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
-
-
-## 7. Referencias utilizadas<br>
+## 6. Referencias utilizadas<br>
 
 - [File-Sytem](https://nodejs.org/api/fs.html)
 - [Path module](https://www.npmjs.com/package/path) aquí esta la documentación (https://nodejs.org/api/path.html)

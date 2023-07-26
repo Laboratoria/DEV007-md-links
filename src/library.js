@@ -106,7 +106,7 @@ function extractLinksFromFile(filePath, validate) {
   });
 }
 
-//la ruta de un directorio y se encarga de extraer todos link archivos Markdown.
+//la ruta de un directorio y se encarga de extraer todos archivos Markdown.
 function extractLinksFromDirectory(directoryPath, validate) {
   return fs.readdir(directoryPath).then((filesArray) => {
     const promises = filesArray.map((file) => {
