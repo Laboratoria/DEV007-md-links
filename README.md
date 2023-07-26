@@ -47,7 +47,8 @@ $ md-links
 La instalación se puede realizar por npm:
 
 ```
-$ `npm i md-links`
+$ npm i md-linksyan              
+
 ```
 
  ## 5. Interfaz de Linea de Comando (CLI) ⚙️
@@ -122,7 +123,7 @@ $ md-links <path>  --stats --validate
 
 ### **Realizado por :**
 ```
-  YanettrDEV007😎
+    YanettrDEV007😎
 ```
 <div align = "center">
   <!-- Gmail -->
