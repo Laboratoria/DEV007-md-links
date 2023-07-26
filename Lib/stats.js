@@ -3,6 +3,7 @@ import https from 'https';
 
 // Definimos una función llamada 'checkLinkStatus' que tomará un enlace (link) como argumento.
 const checkLinkStatus = (link) => {
+  //console.log('aki tambien');
   // Devolvemos una nueva promesa que se resolverá o rechazará dependiendo del estado del enlace.
   return new Promise((resolve, reject) => {
     // Creamos una solicitud (request) utilizando el módulo 'https.get'.

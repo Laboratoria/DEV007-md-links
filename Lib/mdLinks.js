@@ -1,5 +1,5 @@
 import { existsSync, lstatSync } from 'fs';
-import path, { extname, resolve, isAbsolute } from 'path';
+import { extname, resolve, isAbsolute } from 'path';
 import { extractedMD } from './getFiles.js';
 import { getLinks } from './getLinks.js';
 import { stats } from './stats.js';
@@ -7,6 +7,7 @@ import { validateLinks } from './validate.js';
 //import mdLinks from './mdLinks.js';
 import chalk from 'chalk';
 import pkg from 'terminal-kit';
+import path from 'path'
 
 //const readme = 'C:\Users\Javiera\Desktop\Laboratoria\MDLinks\DEV007-md-links\README.md';
 const { terminal: term } = pkg;
@@ -38,16 +39,23 @@ if(isAbsolute(path)){
 // mostrar por consola el resultado
 
 });*/
-const mdLinks = async (path, options = {}) => {
-  if (!isAbsolute(path)) {
-    path = resolve(path);
+//==================================MDLinks============================================
+export function convertAbsolute(pathUser) {
+  if (path.isAbsolute(pathUser)) {
+    return pathUser;
   }
-console.log(path, 1111);
-  if (existsSync(path)) {
-    if (lstatSync(path).isDirectory()) {
-      const files = extractedMD(path);
+  return path.resolve(pathUser);
+}
+const mdLinks = async (path, options = {}) => {
+const absolutePath = convertAbsolute(path);
+console.log(absolutePath, 1111);
+  if (existsSync(absolutePath)) {
+    // -----------------Directory process
+    if (lstatSync(absolutePath).isDirectory()) {
+      const files = extractedMD(absolutePath);
       const links = await Promise.all(files.map(file => getLinks(file)));
-console.log(files, 2222);
+      console.log(files, 2222);
+      // -----------------Validate Links
       if (options.validate) {
         const validatedLinks = await Promise.all(links.map(link => validateLinks(link)));
         console.log(validatedLinks, 3333);
@@ -55,15 +63,29 @@ console.log(files, 2222);
       } else {
         resolve(null);
       }
-    } else if (extname(path) === '.md') {
-      const links = await getLinks(path);
-//console.log(links, 4444)
-      if (options.validate) {
+      //---------------------Process file
+    } else if (extname(absolutePath) === '.md') {
+      const links = await getLinks(absolutePath);
+      //console.log(links, 4444)
+      if(options.stats && options.validate){
+        const statedLinks = (await stats(links));
+        const validatedLinks = await validateLinks(links);
+        return {validatedLinks, statedLinks}
+      }
+        // -----------------------Statistics
+    if (options.stats && !options.validate) {
+      const statedLinks = (await stats(links));
+      //aqui link disvalido
+      return {statedLinks}// retornar tambie disvalid link
+      //objeto, href, text
+      //objeto con stats
+    }
+   
+      // ---------------------Validate Links
+      if (options.validate && !options.stats) {
         const validatedLinks = await validateLinks(links);
         return validatedLinks;
-      } else {
-        return links;
-      }
+      } 
     } else {
       throw new Error('Invalid file type. Only Markdown files are supported.');
     }
@@ -72,7 +94,7 @@ console.log(files, 2222);
   }
 };
 
-mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib', { validate: true })
+mdLinks('../README.md', { validate: false, stats: false })
   .then((links) => {
     console.log(links);
   })
@@ -80,7 +102,7 @@ mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib
     console.error(error);
   });
 
-/*const mypath = 'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example';
+/*const mypath = 'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\READ';
 const options = { validate: true };
 
 mdLinks(mypath, options)
