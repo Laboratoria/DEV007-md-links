@@ -1,6 +1,6 @@
 ![Image](https://user-images.githubusercontent.com/129693341/250697163-be9c92fd-7dc7-4d07-8520-e0e71d4159aa.png)
 
-# MD-Linkyan
+# md-linkyan
 
 ## Índice
 
