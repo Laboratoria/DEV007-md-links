@@ -26,24 +26,38 @@ const processFile = (file, extractedLinks) => {
   while ((match = regex.exec(fileContent)) !== null) {
     extractedLinks.push(match[1]);
   }
-  return extractedLinks
 };
 
 // =========================================PROCESS DIRECTORY
 
 const processDirectory = (dir, mdFiles, extractedLinks) => {
+
   console.log('Processing directory:', dir);
   const files = readdirSync(dir);
+  let newLinks = [];
 
   const promises = files.map((file) => {
     const filePath = join(dir, file);
     const stats = statSync(filePath);
-
     if (stats.isDirectory()) {
       return processDirectory(filePath, mdFiles, extractedLinks);
     } else if (stats.isFile() && extname(filePath) === '.md') {
+      processFile(filePath, extractedLinks)
       mdFiles.push(filePath);
-      return processFile(filePath, extractedLinks); // Add 'return' here to return the promise from processFile
+
+      console.log(mdFiles, 1)
+      for(let i = 0; mdFiles.length; i++){
+        let newLinks = mdFiles.readFileSync[i]
+        console.log(mdFiles.processFile(filePath, extractedLinks));
+
+        for(let i=0; newLinks.length; i++){
+          resolve (newLinks.push(), 3)
+        }
+        //console.log(newLinks.push(), 3)
+        //.processFile(filePath, extractedLinks);
+        return newLinks
+      }
+      console.log(newLinks, 2)
     }
   });
 
@@ -58,11 +72,12 @@ const validateLink = (link) => {
     const request = httpModule.request(link, { method: 'HEAD' }, (response) => {
       const status = response.statusCode;
       const ok = status >= 200 && status < 400;
+
       const linkObj = {
         href: link,
         text: '',
         status,
-        ok: ok ? chalk.blue('ok') : chalk.red('fail'),
+        ok,
       };
 
       resolve(linkObj);
@@ -73,7 +88,7 @@ const validateLink = (link) => {
         href: link,
         text: '',
         status: -1,
-        ok: 'fail',
+        ok: false,
       };
 
       resolve(linkObj);
@@ -82,6 +97,7 @@ const validateLink = (link) => {
     request.end();
   });
 };
+
 
 // =======================================PROCESS LINKS
 
@@ -105,8 +121,8 @@ const processLinks = (extractedLinks, options) => {
 
 const displayLinks = (links, path) => {
   links.forEach((link) => {
-    //console.log(link);
+    console.log(link);
     const { href, text, status, ok } = link;
-    console.log(`${path} ${chalk.inverse.magenta(href)} ${ok ? chalk.cyan('ok') : chalk.red('fail')} ${chalk.gray(text)}`);
+    //conole.log(`${path} ${chalk.inverse.magenta(href)} ${ok ? chalk.cyan('ok') : chalk.red('fail')} ${chalk.gray(text)}`);
   })};
 export { processFile, processDirectory, processLinks, convertToAbsolutePath, displayLinks };
