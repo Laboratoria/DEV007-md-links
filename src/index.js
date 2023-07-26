@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { mdLinks, countLinks } from "./library.js";
 import chalk from "chalk";
 
@@ -9,16 +8,19 @@ console.log(
   )
 );
 
+//se agregan las opciones validate y stats
 const optionTerminal = {
+// si incluye validate es true, si no es false
   validate: process.argv.includes("--validate"),
   stats: process.argv.includes("--stats"),
 };
 
+//optionTerminal guarda el tercer argumento del comando por el process.argv 2 (arreglo de argumentos)
 const filePathTerminal = process.argv[2];
 if (filePathTerminal == null) {
   console.log(
     chalk.gray(
-      "Primero ingresa una ruta y una opción. \nLas opciones disponibles son: "
+      "\n Primero ingresa una ruta y una opción. \n Las opciones disponibles son: "
     )
   );
   console.log(
@@ -38,6 +40,7 @@ if (filePathTerminal == null) {
   process.exit(0);
 } else {
   mdLinks(optionTerminal, filePathTerminal)
+  //metodo then devuelve la promesa cuando este lista, para manejar links cuando se resuelva
     .then((links) => {
       if (optionTerminal.stats) {
         if (optionTerminal.validate) {

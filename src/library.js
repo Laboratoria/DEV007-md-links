@@ -94,6 +94,7 @@ function extractLinksFromFile(filePath, validate) {
         return validateLinks(link, filePath);
       });
 
+//Aquí esperamos que las promesas se resuelvan
       return Promise.all(linkPromises);
     } else {
       return links.map((link) => ({
@@ -120,6 +121,8 @@ function extractLinksFromDirectory(directoryPath, validate) {
         }
       });
     });
+
+    //Aquí esperamos que las promesas se resuelvan
     return Promise.all(promises).then((linksArray) => [].concat(...linksArray));
   });
 }
