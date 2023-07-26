@@ -14,18 +14,18 @@ program
         if (options.stats) {
           const total = links.length;
           const unique = new Set(links.map((link) => link.href)).size;
-          const broken = links.filter((link) => link.ok === 'fail').length;
+          const broken = links.filter((link) => link.ok === false).length;
 
-          console.log(chalk.yellow(`Total: ${total}`));
-          console.log(chalk.green(`Unique: ${unique}`));
-          console.log(chalk.red(`Broken: ${broken}`));
+          console.log(chalk.cyan(`Total: ${total}`));
+          console.log(chalk.blueBright(`Unique: ${unique}`));
+          console.log(chalk.magenta(`Broken: ${broken}`));
         } else {
           links.forEach((link) => {
             console.log(link);
             console.log(
-              chalk.blue(path),
+              chalk.blue(link),
               link.href,
-              link.ok === 'ok' ? chalk.inverse.green(link.ok) : chalk.green(link.ok),
+             // link.ok === 'ok' ? chalk.green(link.ok) : chalk.green(link.ok),
               link.text
             );
           });
