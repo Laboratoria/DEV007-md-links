@@ -21,14 +21,6 @@ El objetivo es crear una herramienta utilizando [Node.js](https://nodejs.org/) p
 
 Esta herramienta será útil para desarrolladores y comunidades de código abierto, ya que les permitirá identificar y corregir los links rotos en sus archivos Markdown, lo que mejorará la calidad y utilidad de la información compartida en plataformas como GitHub, foros y blogs.
 
-El proceso general de la herramienta será el siguiente:
-
-Recibir como entrada una ruta de archivo o directorio que contiene archivos Markdown a analizar.
-Leer el contenido de los archivos Markdown.
-Extraer los links encontrados en cada archivo y almacenarlos en una lista.
-Si se proporciona la opción --validate, verificar la validez de cada link realizando una solicitud HTTP para comprobar su estado.
-Mostrar los resultados en la consola, incluyendo los links encontrados y las estadísticas (cantidad total, cantidad de links únicos y cantidad de links rotos).
-Con esta herramienta, los desarrolladores podrán mantener sus archivos Markdown actualizados y corregir cualquier link roto, lo que mejorará la confiabilidad y utilidad de la documentación y la información compartida en su comunidad de código abierto.
 
 ## 3.Instrucciones de uso
 
