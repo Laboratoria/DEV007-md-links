@@ -8,10 +8,9 @@
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
 * [3. Instrucciones de uso](#3-Instrucciones-de-uso)
 * [4. Instalación](#4-Instalación)
-* [5-Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI))
+* [5. Interfaz de Linea de Comando CLI](#5-Interfaz-de-Línea-de-Comando-CLI))
 * [6. Diagrama de flujo](#5-Diagrama-de-flujo)
-* [7. Project gitHubs](#7-Project-gitHub)
-* [8. Referencias utilizada](#8-Referencias-utilizadas)
+* [7. Referencias utilizada](#7-Referencias-utilizadas)
 
 ***
 ## 1. Introducción
@@ -56,13 +55,13 @@ $ `npm i md-links`
 Se ejecuta de la siguiente manera a través del terminal:
 
 ```
-$ mdLinks <path> [options]
+$ md-links  <path> [options]
 ```
 
  Ejemplo:
 
 ```
-$ mdLinks <path>
+$ md-links <path>
 ```
 
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/21683dfd-e92b-45ef-9142-f2a1f883a95f)
@@ -75,7 +74,7 @@ $ mdLinks <path>
 Al ingresar el comando `md-links path --validate`el módulo hace una petición HTTP para averiguar si el link funciona o no, retonando las siguientes propiedades.
 
 ```
-$ mdLinks <path> --validate
+$ md-links <path> --validate
 ```
 
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/51178624-29e4-4045-999e-afd2f1cb3ce4)
@@ -84,7 +83,7 @@ $ mdLinks <path> --validate
 Si pasamos la opción `--stats` el output (salida) obtenemos un texto con estadísticas básicas sobre los links, como el número total de links y links únicos.
 
 ```
-$ mdLinks <path> --stats
+$ md-links <path> --stats
 ```
 
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/56eabfd4-7083-4125-91cb-36b5f3cc1af9)
@@ -94,11 +93,11 @@ $ mdLinks <path> --stats
 Si pasamos la opción `--validate` y `--stats` o Si pasamos la opción `--stats` y `--validate` nos retornara las estadísticas de los links totales, únicos y rotos.
 
 ```
-$ mdLinks <path> --validate --stats
+$ md-links  <path> --validate --stats
 ```
 
 ```
-$ mdLinks <path>  --stats --validate
+$ md-links <path>  --stats --validate
 ```
 
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/287f2ff9-2e02-4a00-b037-65618dcee48b)
@@ -110,11 +109,8 @@ $ mdLinks <path>  --stats --validate
 
 ![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
-## 7.  Project gitHub
 
-![img](imag/project-github.png)
-
-## 8.- Referencias utilizadas<br>
+## 7. Referencias utilizadas<br>
 
 - [File-Sytem](https://nodejs.org/api/fs.html)
 - [Path module](https://www.npmjs.com/package/path) aquí esta la documentación (https://nodejs.org/api/path.html)
@@ -126,7 +122,7 @@ $ mdLinks <path>  --stats --validate
 
 ### **Realizado por :**
 ```
-  YanettrDEV007
+  YanettrDEV007😎
 ```
 <div align = "center">
   <!-- Gmail -->
