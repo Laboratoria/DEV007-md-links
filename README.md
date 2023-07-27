@@ -93,15 +93,10 @@ $ md-links <path>  --stats --validate
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/287f2ff9-2e02-4a00-b037-65618dcee48b)
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/f9a1a216-02d6-482d-b894-75de408bbf2b)
 
+## 6. Planificación
+- github Projects   | [GitHub Projects](https://github.com/users/Yanettr/projects/2)
+- Diagrama de flujo | [Diagrama de Flujo](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
-## 6. Diagrama de flujo
-
-![img](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
-
-### **Project gitHub**
-  ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/81ae8aea-35d9-4515-876d-3f906b5f7821)
-
-    
 ## 7. Referencias utilizadas<br>
 
 - [File-Sytem](https://nodejs.org/api/fs.html)
