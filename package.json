@@ -2,6 +2,9 @@
   "name": "anavaldes-md-links",
   "version": "0.1.0",
   "type": "module",
+  "bin": {
+    "mdLinks": "cli.js"
+  },
   "jest": {
     "verbose": true
   },
@@ -33,6 +36,7 @@
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "eslint-config-airbnb": "^19.0.4",
+    "global": "^4.4.0",
     "marked": "^5.1.1"
   },
   "prettier": {

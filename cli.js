@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+/* eslint-disable max-len */
 import mdLinks from './index.js';
 
 const optionsObject = {};
@@ -12,6 +14,9 @@ if (process.argv[3] === '--stats' || process.argv[4] === '--stats') {
 } else {
   optionsObject.stats = false;
 }
+//   }
+// }
+
 mdLinks(process.argv[2], optionsObject)
   .then((result) => {
     console.log(result);
