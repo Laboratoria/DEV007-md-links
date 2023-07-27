@@ -94,7 +94,7 @@ $ md-links <path>  --stats --validate
 ![image](https://github.com/Yanettr/DEV007-md-links/assets/129693341/f9a1a216-02d6-482d-b894-75de408bbf2b)
 
 ## 6. Planificación
-- github Projects   | [GitHub Projects](https://github.com/users/Yanettr/projects/2)
+- Github Projects   | [GitHub Projects](https://github.com/users/Yanettr/projects/2)
 - Diagrama de flujo | [Diagrama de Flujo](https://user-images.githubusercontent.com/129693341/254017149-42480e97-47c0-490d-8abe-51dca22ef639.png)
 
 ## 7. Referencias utilizadas<br>
