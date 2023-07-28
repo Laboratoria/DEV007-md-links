@@ -40,15 +40,19 @@ if(isAbsolute(path)){
 
 });*/
 //==================================MDLinks============================================
-export function convertAbsolute(pathUser) {
+/*export function convertAbsolute(pathUser) {
+  console.log('aaa', pathUser)
   if (path.isAbsolute(pathUser)) {
     return pathUser;
   }
   return path.resolve(pathUser);
 }
-const mdLinks = async (path, options = {}) => {
-const absolutePath = convertAbsolute(path);
-console.log(absolutePath, 1111);
+const elPath = process.argv[2];*/
+console.log('elPath', elPath);
+const mdLinks = async (elPath, options = {}) => {
+  const absolutePath = convertAbsolute(elPath);
+  console.log(absolutePath);
+  console.log(absolutePath, 1111);
   if (existsSync(absolutePath)) {
     // -----------------Directory process
     if (lstatSync(absolutePath).isDirectory()) {
@@ -67,25 +71,24 @@ console.log(absolutePath, 1111);
     } else if (extname(absolutePath) === '.md') {
       const links = await getLinks(absolutePath);
       //console.log(links, 4444)
-      if(options.stats && options.validate){
+      if (options.stats && options.validate) {
         const statedLinks = (await stats(links));
         const validatedLinks = await validateLinks(links);
-        return {validatedLinks, statedLinks}
+        return { validatedLinks, statedLinks }
       }
-        // -----------------------Statistics
-    if (options.stats && !options.validate) {
-      const statedLinks = (await stats(links));
-      //aqui link disvalido
-      return {statedLinks}// retornar tambie disvalid link
-      //objeto, href, text
-      //objeto con stats
-    }
-   
+      // -----------------------Statistics
+      if (options.stats && !options.validate) {
+        const statedLinks = (await stats(links));
+        //aqui link disvalido
+        return { statedLinks }// retornar tambie disvalid link
+        //objeto, href, text
+        //objeto con stats
+      }
       // ---------------------Validate Links
       if (options.validate && !options.stats) {
         const validatedLinks = await validateLinks(links);
         return validatedLinks;
-      } 
+      }
     } else {
       throw new Error('Invalid file type. Only Markdown files are supported.');
     }
@@ -94,14 +97,31 @@ console.log(absolutePath, 1111);
   }
 };
 
-mdLinks('../README.md', { validate: false, stats: false })
+mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\README.md')
   .then((links) => {
     console.log(links);
+    term.slowTyping(
+      'DONE!\n',
+      { flashStyle: term.brightWhite },
+      () => { process.exit(); },
+    );
   })
   .catch((error) => {
     console.error(error);
   });
 
+/*mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\README.md', { validate: true, stats: true })
+.then((links) => {
+  console.log(links);
+  term.slowTyping(
+    'DONE!\n',
+    { flashStyle: term.brightWhite },
+    () => { process.exit(); },
+  );
+})
+.catch((error) => {
+  console.error(error);
+});*/
 /*const mypath = 'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\READ';
 const options = { validate: true };
 
@@ -205,6 +225,5 @@ const tableOptions = {
 };
 
 term.table(data, tableOptions);*/
-
 
 

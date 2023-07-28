@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 import { program } from 'commander';
 import mdLinks from './app.js';
-=======
-// CLI.js
-
-import { program } from 'commander';
-import mdLinks from './mdLinks.js';
-import chalk from 'chalk';
->>>>>>> 283ae1946214c40752eb74c7f51f73fb2de99a35
 
 program
   .command('mdlinks <path>')
@@ -41,8 +33,4 @@ program
       });
   });
 
-<<<<<<< HEAD
 program.parse(process.argv);
-=======
-program.parse(process.argv);
->>>>>>> 283ae1946214c40752eb74c7f51f73fb2de99a35

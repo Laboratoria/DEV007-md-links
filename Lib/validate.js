@@ -1,28 +1,36 @@
-// validate.js
 import http from 'http';
 import https from 'https';
 
-export const validateLink = (link) => {
+export const validateLink = (link, file) => {
   return new Promise((resolve) => {
     const httpModule = link.startsWith('https') ? https : http;
     const request = httpModule.request(link, { method: 'HEAD' }, (response) => {
       const status = response.statusCode;
       const ok = status >= 200 && status < 400;
 
-      const linkObj = {
-        href: link,
-        text: '',
-        status,
-        ok,
-      };
+      // Extraemos el texto del enlace del objeto response
+      const chunks = [];
+      response.on('data', (chunk) => chunks.push(chunk));
+      response.on('end', () => {
+        const text = chunks.join('').trim();
 
-      resolve(linkObj);
+        const linkObj = {
+          href: link,
+          text, // Usamos la variable local 'text'
+          file, // Usamos la variable local 'file'
+          status,
+          ok,
+        };
+
+        resolve(linkObj);
+      });
     });
 
     request.on('error', () => {
       const linkObj = {
         href: link,
-        text: '',
+        text: '', // Texto vacío en caso de error
+        file, // Usamos la variable local 'file'
         status: -1,
         ok: false,
       };
@@ -34,13 +42,12 @@ export const validateLink = (link) => {
   });
 };
 
-export const validateLinks = async(links) => {
+export const validateLinks = async (links, file) => {
   const linkPromises = links.map((link) => {
-    return validateLink(link);
+    return validateLink(link, file);
   });
 
   return Promise.all(linkPromises);
 };
-//console.log(await (validateLink('https://example.com')));
 
-export default {validateLinks, validateLink};
+export default { validateLinks, validateLink };
