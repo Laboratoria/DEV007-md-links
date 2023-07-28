@@ -3,6 +3,7 @@
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable max-len */
 import chalk from 'chalk';
+import Table from 'cli-table3';
 import {
   existenciaDeLaRuta,
   rutaAbsoluta,
@@ -55,7 +56,26 @@ export default function mdLinks(path, options) {
                     `Se encontraron ${links.length} links en el archivo`,
                   ),
                 );
-                console.log(links);
+                const tabla = new Table({
+                  head: [
+                    chalk.blue('NUMERO'),
+                    chalk.blue('TEXT'),
+                    chalk.blue('HREF'),
+                    chalk.blue('FILE'),
+                  ],
+                  colWidths: [10, 50, 50, 20],
+                });
+                let numero = 1;
+                links.forEach((link) => {
+                  tabla.push([
+                    chalk.blue(numero),
+                    link.TEXT,
+                    link.HREF,
+                    link.FILE,
+                  ]);
+                  numero += 1;
+                });
+                console.log(tabla.toString());
                 if (options.stats) {
                   const result = estadisticas(links);
                   console.log(result);
@@ -95,6 +115,7 @@ export default function mdLinks(path, options) {
                   `Se encontraron ${archivosDirectorio.length} archivos .md`,
                 ),
               );
+              console.log(chalk.green('Extrayendo links...'));
               const allLinks = [];
               const promises = archivosDirectorio.map((archivo) =>
                 leerArchivoMD(archivo)
@@ -122,7 +143,7 @@ export default function mdLinks(path, options) {
                     `Se encontraron ${links.length} links en total es este Directorio`,
                   ),
                 );
-                console.log(chalk.green('Extrayendo links...'));
+
                 if (links.length > 0 && options.validate) {
                   validarLinks(links).then((linksValidate) => {
                     if (options.stats) {
@@ -169,7 +190,11 @@ export default function mdLinks(path, options) {
             reject(chalk.red('El directorio esta vacio'));
           }
         } else {
-          reject(chalk.red('La ruta no es un Archivo .md ni un Directorio.'));
+          reject(
+            chalk.red(
+              'La ruta no corresponde a un Archivo .md ni un Directorio.',
+            ),
+          );
         }
       } else if (path.includes('--validate') || path.includes('--stats')) {
         reject(

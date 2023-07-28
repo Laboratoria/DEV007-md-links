@@ -4,6 +4,8 @@ import path from 'path';
 import { marked } from 'marked';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
+import Table from 'cli-table3';
+import chalk from 'chalk';
 // import parse5 from 'parse5'
 
 // existe la ruta
@@ -102,25 +104,56 @@ export async function validarLinks(links) {
     try {
       const response = await axios.head(link.HREF);
       return {
-        href: link.HREF,
         text: link.TEXT,
+        href: link.HREF,
         file: link.FILE,
         status: response.status,
-        ok: 'ok',
+        ok: chalk.green('ok'),
       };
     } catch (error) {
       return {
-        href: link.HREF,
         text: link.TEXT,
+        href: link.HREF,
         file: link.FILE,
         status: error.response ? error.response.status : 0,
-        ok: 'fail',
+        ok: chalk.red('fail'),
       };
     }
   });
 
   const results = await Promise.all(requests);
-  console.log(results);
+
+  // Crear una nueva tabla
+  const table = new Table({
+    head: [
+      chalk.blue('NUMERO'),
+      chalk.blue('TEXT'),
+      chalk.blue('HREF'),
+      chalk.blue('FILE'),
+      chalk.blue('STATUS'),
+      chalk.blue('OK'),
+    ],
+    colWidths: [10, 50, 30, 20, 10, 10],
+  });
+
+  // Agregar filas a la tabla con los datos de cada link
+  let numero = 1;
+  results.forEach((link) => {
+    const okColor = link.ok === 'ok' ? 'green' : 'red';
+    table.push([
+      chalk.blue(numero),
+      link.text,
+      link.href,
+      link.file,
+      chalk.yellow(link.status),
+      chalk[okColor](link.ok),
+    ]);
+    numero += 1;
+  });
+
+  // Imprimir la tabla
+  console.log(table.toString());
+
   return results;
 }
 
