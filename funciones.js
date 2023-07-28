@@ -142,6 +142,5 @@ export function estadisticas(arrayLinks) {
   const objetoEstadisticas = arrayLinks[0].ok
     ? { TOTAL: total, UNIQUE: unique, BROKEN: broken }
     : { TOTAL: total, UNIQUE: unique };
-  console.log(objetoEstadisticas);
   return objetoEstadisticas;
 }
