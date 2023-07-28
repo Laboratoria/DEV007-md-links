@@ -1,4 +1,17 @@
 const path = require("path");
+const mdLinks1 = (path, options) => {
+  //  identify if route exists
+  return new Promise((resolve, reject) => {
+    //  existSyn checkea la existenia de la ruta síncronicamente, es boolean
+    if (fs.existsSync(path)) {
+      resolve("La ruta es válida");
+    }
+    //  reject promise if route doesnt exists
+    else {
+      reject("La ruta no existe");
+    }
+  });
+};
 
 const mdLinks = () => {
   //  Check type of route, only if route exists
