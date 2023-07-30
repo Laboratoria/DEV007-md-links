@@ -16,3 +16,7 @@ describe("mdLinks", () => {
     });
   });
 });
+
+/*
+console.log(chalk.blue(mdLinks("./README.md"))); esto me devuelve [object promise]
+*/

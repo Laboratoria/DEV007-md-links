@@ -1,6 +1,7 @@
 //  import node modules
 const fs = require("fs");
 const path = require("path");
+const chalk = require("chalk");
 const functions = require("./functions.js");
 //  Create function
 const mdLinks = (path, options) => {
@@ -10,20 +11,23 @@ const mdLinks = (path, options) => {
       // resolve para retornar algo
       resolve("La ruta sí existe");
       //  Check type of route(boolean) with .isAbsolute, only if path exists
-      if (!functions.pathIsAbsolute(path)) {
+      //if (!functions.pathIsAbsolute(path)) {
+      if (!path.isAbsolute(path)) {
         //  transform in absolute path if the return is false(relative)
         userPath = path.resolve(path);
-        console.log(userPath);
+        resolve(console.log(userPath));
       } else {
         //  else:keep original path
         userPath = path;
+        console.log(userPath);
       }
       //  check if it is file or directory
+      //  return path info
       var stats = fs.statSync(userPath);
-      console.log(stats.isFile);
+      resolve(console.log(stats.isFile));
       //  check if it is a file and if it is a file.md
       if (stats.isFile() && path.extname(userPath) === ".md") {
-        console.log("es un archivo válido" + stats.isFile());
+        resolve(console.log("es un archivo válido" + stats.isFile()));
         //  md file goes to an array with de md files
         const saveFiles = [];
         saveFiles.push(userPath);
@@ -40,18 +44,21 @@ const mdLinks = (path, options) => {
           console.log(data);
         });
         //  save the links in an array
+        const saveLinks = [];
       } else {
         //  open directory to iterate and filter md files
       }
     } else {
       //  reject promise if route doesnt exists
-      reject("¡ERROR! La ruta no existe");
+      reject("La ruta no existe");
     }
   });
 };
-console.log(path.extname("README.md"));
+
 //  export function mdLinks
 module.exports = {
   mdLinks,
 };
-console.log(mdLinks("./README.md"));
+console.log(chalk.magenta.bgGreen.bold(path.extname("README.md")));
+console.log(chalk.blue(mdLinks("./README.md")));
+console.log(chalk.yellow("yellow"));

@@ -4,3 +4,4 @@ mdLinks("examples/doesntexist.md")
   .catch((error) => {
     console.log(error);
   });
+mdLinks("README.md");
