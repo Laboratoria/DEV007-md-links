@@ -1,4 +1,5 @@
 import https from 'https';
+import http from 'http';
 // ==============================Statistics========================
 
 // -----------------------------Create Links Array
@@ -10,23 +11,25 @@ export const createLinksArray = (extractedLinks) => {
 // ----------------------------Check Link Status
 export const checkLinkStatus = (link) => {
   return new Promise((resolve, reject) => {
-    const request = https.get(link, (response) => {
-      resolve(response.statusCode >= 200 && response.statusCode < 400);
+    const { href } = link
+    const httpModule = href.startsWith('https://') ? https : http
+    const request = httpModule.get(href, (response) => {
+      resolve(response.statusCode);
     });
-
     request.on('error', (error) => {
-      resolve(false);
+      //resolve(0);
     });
   });
 };
 
 // ----------------------------Get Statistics
 export const stats = async (links) => {
-  const uniqueCount = new Set(links).size;
+  const uniqueCount = [...new Set(links.map(item => item.href))].length;
   let brokenCount = 0;
 
   for (const link of links) {
-    const isLinkBroken = !(await checkLinkStatus(link));
+    const checkStatLink = await checkLinkStatus(link);
+    const isLinkBroken = !(checkStatLink >= 200 && checkStatLink < 400)
 
     if (isLinkBroken) {
       brokenCount++;

@@ -80,6 +80,7 @@ const validateLink = (link) => {
         ok,
       };
 
+
       resolve(linkObj);
     });
 
