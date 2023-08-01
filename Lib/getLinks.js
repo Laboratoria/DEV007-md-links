@@ -1,5 +1,7 @@
-import fs from 'fs';
+import fs, { read } from 'fs';
+// ===============================Get Links============================
 
+// --------------------------Read Files
 export const readMdFiles = (mdFilesArray) => {
   // lee los archivos
   const fileContents = [];
@@ -8,10 +10,11 @@ export const readMdFiles = (mdFilesArray) => {
     const fileContent = readFile.toString();
     fileContents.push({fileContent: fileContent, File: filePath});
   });
-  console.log(fileContents, 555555);
+  //console.log(fileContents, 555555);
   return fileContents;
 }; 
 
+// --------------------------Extact Links Object
 const extractLinks = (objectWithMDDataArray) => {
   const objectLinksArray = [];
   const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -21,8 +24,6 @@ const extractLinks = (objectWithMDDataArray) => {
   }
 
   objectWithMDDataArray.forEach((objectWithMDData) => {
-    //const { fileData, file } = objectWithMDData;
-    console.log(objectWithMDData, 2222);
 
     let match = regex.exec(objectWithMDData.fileContent);
     while (match !== null) {
@@ -42,13 +43,14 @@ const extractLinks = (objectWithMDDataArray) => {
   return objectLinksArray;
 };
 
-const objectWithMDDataArray = [
+export const objectWithMDDataArray = [
   'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\READ.md',
   'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\README copy.md',
   'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\README.pt.md'
 ];
 
-const readenfiles = readMdFiles(objectWithMDDataArray);
-console.log(readMdFiles);
+export const readenfiles = readMdFiles(objectWithMDDataArray);
+//console.log(readMdFiles);
 const extractedLinks = extractLinks(readenfiles);
-console.log(extractedLinks);
+//console.log(extractedLinks);
+export default { readMdFiles, extractLinks, readenfiles};

@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-
+// ===============================Get Files============================
 export const extractedMD = (route) => {
     const thisRoute = route;
     const arrayMD = [];
-
+    // -----------------------Check Directory
     const checkDirectory = (route) => {
         const stats = fs.statSync(route);
 
@@ -25,4 +25,4 @@ export const extractedMD = (route) => {
 };
 
 
-console.log(extractedMD('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib'));
+//console.log(extractedMD('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib'));

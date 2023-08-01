@@ -1,7 +1,7 @@
 import { existsSync, lstatSync } from 'fs';
 import { extname, resolve, isAbsolute } from 'path';
 import { extractedMD } from './getFiles.js';
-import { getLinks } from './getLinks.js';
+import { readMdFiles, readedfiles } from './getLinks.js';
 import { stats } from './stats.js';
 import { validateLinks } from './validate.js';
 //import mdLinks from './mdLinks.js';
@@ -25,57 +25,70 @@ const displayLinks = (links, path) => {
   );
 };
 
-/*const mdLinks = async (path, options = {} => {
-if(!isAbsolute(path)){
-  resolve(path)
-}
-if(isAbsolute(path)){
-//si existe entonces, pregunta
-// si es un archivo md, entonces procesar con getlinks
-// si es un carpeta o md entonces va a procesar con getfile y luego con get links
-// se toma el array de md links, si es que opcion es stats
-// se arroja el resultado de las estadisticas, este debe ser acumulable por cada uno de los links 
-//si la opcion es validate, hara lo mismo pero con la funcion del modul validate y muestra su respectivo resultado 
-// mostrar por consola el resultado
-
-});*/
 //==================================MDLinks============================================
-/*export function convertAbsolute(pathUser) {
+export function convertAbsolute(pathUser) {
   console.log('aaa', pathUser)
   if (path.isAbsolute(pathUser)) {
     return pathUser;
   }
   return path.resolve(pathUser);
 }
-const elPath = process.argv[2];*/
-console.log('elPath', elPath);
+const elPath = process.argv[2];
+//console.log('elPath', elPath);
 const mdLinks = async (elPath, options = {}) => {
   const absolutePath = convertAbsolute(elPath);
-  console.log(absolutePath);
-  console.log(absolutePath, 1111);
+  //console.log(absolutePath);
+ // console.log(absolutePath, 1111);
   if (existsSync(absolutePath)) {
+
     // -----------------Directory process
     if (lstatSync(absolutePath).isDirectory()) {
       const files = extractedMD(absolutePath);
-      const links = await Promise.all(files.map(file => getLinks(file)));
       console.log(files, 2222);
+      const links = await Promise.all(files.map(file => readMdFiles(file)));
+      console.log(links, 3333);
+
       // -----------------Validate Links
       if (options.validate) {
         const validatedLinks = await Promise.all(links.map(link => validateLinks(link)));
-        console.log(validatedLinks, 3333);
+        //console.log(validatedLinks, 3333);
         resolve(validatedLinks);
       } else {
         resolve(null);
       }
-      //---------------------Process file
+
+      //---------------------Process MD file
     } else if (extname(absolutePath) === '.md') {
-      const links = await getLinks(absolutePath);
-      //console.log(links, 4444)
+      console.log(absolutePath);
+      const readenLinks = await readMdFiles([absolutePath]);
+      console.log(readenLinks);
+      const extractedLinksObj = extractLinks(links);
+      console.log(extractedLinksObj, 3333);
+
+      //const extractedLinks = extractLinks(links);
+      //console.log(extractedLinks, 4444)
       if (options.stats && options.validate) {
         const statedLinks = (await stats(links));
+        console.log(statedLinks, 5555);
         const validatedLinks = await validateLinks(links);
+        console.log(validatedLinks, 666);
         return { validatedLinks, statedLinks }
       }
+
+      //1.- Extraer los links
+      //2.- Preguntar, si el usario NO pasó validate hay que devolver los links, sin hacerles nada.
+      //3.- Si sí se le pasó validate hay que validar los link y devolverlos.
+
+      if (options.validate) {
+        const validatedLinks = await validateLinks(links);
+        return validatedLinks;
+      } else {
+        
+        return statedLinks
+      }
+
+      /* CODIGO DE JAVI
+
       // -----------------------Statistics
       if (options.stats && !options.validate) {
         const statedLinks = (await stats(links));
@@ -89,6 +102,8 @@ const mdLinks = async (elPath, options = {}) => {
         const validatedLinks = await validateLinks(links);
         return validatedLinks;
       }
+
+      */
     } else {
       throw new Error('Invalid file type. Only Markdown files are supported.');
     }
@@ -110,120 +125,5 @@ mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\REA
     console.error(error);
   });
 
-/*mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\README.md', { validate: true, stats: true })
-.then((links) => {
-  console.log(links);
-  term.slowTyping(
-    'DONE!\n',
-    { flashStyle: term.brightWhite },
-    () => { process.exit(); },
-  );
-})
-.catch((error) => {
-  console.error(error);
-});*/
-/*const mypath = 'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\READ';
-const options = { validate: true };
-
-mdLinks(mypath, options)
-  .then((links) => {
-    console.log(mypath);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-*/
-/*mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\README.md', { validate: true })
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-*/
-//console.log(await mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\README.md', {validate: true}))
-
 export default mdLinks;
-
-/*const mypath = 'C:\Users\Javiera\Desktop\Laboratoria\MDLinks\DEV007-md-links\Lib\Example';
-const options = { validate: true };
-
-mdLinks(mypath, options)
-  .then((links) => {
-    console.log(links);
-  })
-  .catch((error) => {
-    console.error(error);
-  }); */
-/*mdLinks(readme, {validate: true})
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.error(error);
-  });*/
-
-// Ejemplo de uso con un solo archivo:
-/*try {
-  const links = await mdLinks('C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\README.md', { validate: true });
-  // Haz lo que desees con los links devueltos
-} catch (error) {
-  console.error(error);
-}
-
-// Ejemplo de uso con un array de archivos:
-try {
-  const links = await mdLinks(['C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\READ.md', 'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\Lib\\Example\\Subexample\\README.md'], { validate: true });
-  // Haz lo que desees con los links devueltos
-} catch (error) {
-  console.error(error);
-}*/
-
-/*mdLinks(relativePath)
-  .then((rutaAbsoluta) => {
-    console.log(chalk.inverse.cyan(rutaAbsoluta));
-  })
-  .catch((error) => {
-    console.error(chalk.magenta.bold('Error:', error));
-  });+*/
-
-
-/*const customColor = term.rgb(100, 200, 50);
-const customBackgroundColor = term.rgb(50, 100, 200);*/
-/*const displayLinks = (links, path) => {
-  links.forEach((link) => {
-    console.log(link);
-    const { href, text, status, ok } = link;
-    console.log(`${path} ${chalk.inverse.magenta(href)} ${ok ? chalk.cyan('ok') : chalk.red('fail')} ${chalk.gray(text)}`);
-  });
-  term.slowTyping(
-    'DONE!\n',
-    { flashStyle: term.brightWhite },
-    () => { process.exit(); },
-  );
-  
-};*/
-/*const data = [
-  ['header #1', 'header #2', 'header #3'],
-  ['row #1', 'a much bigger cell, a much bigger cell, a much bigger cell... ', 'cell'],
-  ['row #2', 'cell', 'a medium cell'],
-  ['row #3', 'cell', 'cell'],
-  ['row #4', 'cell\'Hola'],
-];
-
-const tableOptions = {
-  hasBorder: true,
-  contentHasMarkup: true,
-  borderChars: 'lightRounded',
-  borderAttr: { color: 'cyan' },
-  textAttr: { bgColor: 'default' },
-  firstCellTextAttr: { bgColor: 'black' },
-  firstRowTextAttr: { bgColor: 'green' },
-  firstColumnTextAttr: { bgColor: 'yellow' },
-  width: 60,
-  fit: true,
-};
-
-term.table(data, tableOptions);*/
-
 
