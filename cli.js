@@ -4,4 +4,10 @@ mdLinks("examples/doesntexist.md")
   .catch((error) => {
     console.log(error);
   });
-mdLinks("README.md");
+mdLinks("README.md")
+  .then((userPath) => {
+    console.log(userPath);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
