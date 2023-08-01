@@ -3,11 +3,12 @@ const fs = require("fs"); // para los archivos
 const path = require("path"); // para las rutas
 const colors = require("colors"); // para el estilo (color)
 const axios = require("axios"); // para hacer solicitudes HTTP
+
 // Mdlink Function
 const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats: false }) => {
   return new Promise((resolve, reject) => {
     // DF 1
-    // Check if the path exists.
+    // Check if the path valid.
     if (!fs.existsSync(inputPath)) {
       reject(colors.brightRed.bold("The path doesn't exist"));
       return;
@@ -36,11 +37,14 @@ const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats
             promises.push(getMdFiles(filePath)); // aqui entra mi exploracion de sub directorios (recursividad)
             // DF 6 Does is a md file?
           } else if (path.extname(filePath) === ".md") {
+            // DF 7 Read MD file. CALL readMarkdownFile function: continue below
             promises.push(readMarkdownFile(filePath, options));
           }
         });
         return Promise.all(promises);
       };
+
+      // 
       getMdFiles(inputPath)
         .then((links) => {
           const allLinks = links.flat();
@@ -86,7 +90,7 @@ const mdLinks = (inputPath = process.argv[2], options = { validate: false, stats
     }
   });
 };
-// DF 7 read md.links
+// DF 7 cont. Read md.links
 const readMarkdownFile = (filePath, options) => {
   return new Promise((resolve, reject) => {
     //console.log(colors.green.underline(filePath));
@@ -94,6 +98,7 @@ const readMarkdownFile = (filePath, options) => {
     const regex = /\[([^\]]+)\]\(([^\)]+)\)/g; // declaro una expresion regular para los Links MD
     const links = []; // donde quiero almacenar
     let match;
+    // DF 8 . Has a URL?
     while ((match = regex.exec(fileContent)) !== null) {
       // ciclo de busqueda de links con el metodo .exec
       const text = match[1];
@@ -101,7 +106,7 @@ const readMarkdownFile = (filePath, options) => {
       links.push({ text, href, file: filePath }); // pucheo cada link en mi arreglo
     }
     // console.log(links);
-    // DF 8
+    //DF 9. Extrac the links
     const filteredLinks = links.filter((link) => !/\d+/.test(link.text)); // dejo o filtro los enlaces quitando los que tienen números
     // console.log(filteredLinks);
     if (options.validate) {  // Validate
@@ -130,7 +135,11 @@ const printStatsAndResolve = (links, resolve) => {
   resolve(links);
   printStatsWithBroken(links);
 };
-// DF 8 Validate links
+const printStatsWithBroken = (links) => {
+  const stats = statsValidatelinks(links);
+  console.log(colors.blue(`Total: ${stats.Total}, Unique: ${stats.Unique}, Broken: ${stats.Broken}`));
+};
+// DF 10.1 Validate links
 const validateLink = (link) => {
   return new Promise((resolve, reject) => {
     axios
@@ -148,7 +157,7 @@ const validateLink = (link) => {
   });
 };
 
-// DF 11 PrintStats Functions
+// DF 10.2 PrintStats Functions
 const printStats = (links) => {
   const stats = statsLinks(links);
   console.log(colors.blue(`Total: ${stats.Total}, Unique: ${stats.Unique}`));
@@ -162,7 +171,7 @@ const statsLinks = (links) => {
   };
 };
 
-// DF 10 StatsLinks & ValidateLinks Function
+// DF 10.3 StatsLinks & ValidateLinks Function
 const statsValidatelinks = (links) => {
   const fails = links.filter(link => link.ok === 'fail').length;
   return {
@@ -171,8 +180,6 @@ const statsValidatelinks = (links) => {
     Broken: fails
   };
 };
-
-
 
 tsWithBroken = (links) => {
   const stats = statsValidatelinks(links);
@@ -185,6 +192,10 @@ module.exports = {
   mdLinks,
   statsLinks,
   statsValidatelinks,
+  readMarkdownFile,
+  validateLink,
+  printStats,
+  printStatsWithBroken,
 };
 
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { mdLinks, statsValidatelinks } = require("./index.js");
 const colors = require("colors");
 
@@ -28,7 +30,7 @@ if (command) {
           });
         } else {
           result.flat().forEach((link) => {
-            console.log(`(${colors.blue(link.text)}, ${colors.gray(link.href)})`);
+            console.log(`(${colors.blue(link.text)}, (${colors.cyan(link.file)}, ${colors.gray(link.href)})`);
           });
         }
       } else {
