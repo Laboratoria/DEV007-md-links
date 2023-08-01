@@ -1,0 +1,10 @@
+{
+    "workbench.preferredHighContrastLightColorTheme": "Default Dark Modern",
+    "workbench.preferredLightColorTheme": "Visual Studio Dark",
+    "editor.semanticTokenColorCustomizations": {
+        "[Default Dark Modern]": {}
+    },
+    "editor.tokenColorCustomizations": {
+        "[Default Dark Modern]": {}
+    }
+}
