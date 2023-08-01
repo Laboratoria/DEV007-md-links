@@ -42,8 +42,8 @@ const mdLinks = (ruta, options) => {
           console.log(data, 1.4);
         });
         //  extract file links
-        const { links } = markdownLinkExtractor(data);
-        links.forEach((link) => console.log(link, 1.5));
+        /*    const { links } = markdownLinkExtractor(data);
+        links.forEach((link) => console.log(link, 1.5));*/
       } else {
         //  open directory to iterate and filter md files
         //  md file goes to an array with de md files
