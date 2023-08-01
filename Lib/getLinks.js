@@ -16,7 +16,7 @@ const readMdFiles = (mdFilesArray) => {
 // --------------------------Extact Links Object
 const extractLinks = (objectWithMDDataArray) => {
   const objectLinksArray = [];
-  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const regex = /\[([^\]]+)\]\(((?!#)[^)]+)\)/g;
 
   if (!objectWithMDDataArray || objectWithMDDataArray.length === 0) {
     return objectLinksArray;

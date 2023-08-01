@@ -27,20 +27,21 @@ const mdLinks = async (elPath, options = {}) => {
     if (lstatSync(absolutePath).isDirectory()) {
       const files = extractedMD(absolutePath);
       const links = await Promise.all(files.map(file => readMdFiles([file])));
-      console.log(links, 1111);
+      const extractedLinks = extractLinks(links.flat());
 
       if (options.validate && options.stats) {
         const validatedLinks = await Promise.all(links.map(link => validateLinks(link)));
         const statedLinks = await stats(validatedLinks);
         return { validatedLinks, statedLinks };
       } else if (options.validate) {
-        const validatedLinks = await Promise.all(links.map(link => validateLinks(link)));
+        const validatedLinks = await validateLinks(extractedLinks)
+        //const validatedLinks = await Promise.all(extractedLinks.map((link, _, linkArr) => validateLinks(link)));
         return validatedLinks;
       } else if (options.stats) {
         const statedLinks = await stats(links);
         return { statedLinks };
       } else {
-        return links;
+        return extractedLinks;
       }
     } else if (extname(absolutePath) === '.md') {
       const readenLinks = await readMdFiles([absolutePath]);
@@ -62,6 +63,8 @@ const mdLinks = async (elPath, options = {}) => {
         if (Object.keys(options).length === 0) {
           return extractedLinksObj;
         }
+
+        return extractedLinksObj
       }
     } else {
       throw new Error('Invalid file type. Only Markdown files are supported.');
@@ -73,7 +76,7 @@ const mdLinks = async (elPath, options = {}) => {
 
 //export default mdLinks;
 
-mdLinks('./Example/Subexample/', {stats: true })
+mdLinks('C:/Users/Javiera/Desktop/Laboratoria/MDLinks/DEV007-md-links/Lib/Example/Subexample/README.pt.md', {validate: true })
   .then((links) => {
     console.log("links", links);
     
