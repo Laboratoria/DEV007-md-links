@@ -4,7 +4,7 @@ import http from 'http';
 
 // -----------------------------Create Links Array
 export const createLinksArray = (extractedLinks) => {
-  const linksArray = extractedLinks.map((linkObject) => linkObject.href);
+  const linksArray = extractedLinks.map((link) => ({ href: link }));
   return linksArray;
 };
 
@@ -12,7 +12,7 @@ export const createLinksArray = (extractedLinks) => {
 export const checkLinkStatus = (link) => {
   return new Promise((resolve, reject) => {
     const { href } = link
-    const httpModule = href.startsWith('https://') ? https : http
+    const httpModule = href.startsWith('https://') ? https : http;
     const request = httpModule.get(href, (response) => {
       resolve(response.statusCode);
     });
