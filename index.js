@@ -4,6 +4,8 @@ const path = require("path");
 const chalk = require("chalk");
 const functions = require("./functions.js");
 const markdownLinkExtractor = require("markdown-link-extractor");
+const { axios } = require("axios");
+const { get } = require("http");
 //  Create function
 const mdLinks = (ruta, options) => {
   return new Promise((resolve, reject) => {
@@ -38,18 +40,40 @@ const mdLinks = (ruta, options) => {
           1.3
         );
         //  read file to check if md file contains Link
-        fs.readFile(userPath, "utf-8", (res, data) => {
-          console.log(data, 1.4);
+        fs.readFile(userPath, "utf-8", (err, data) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log(data, 1.4);
+            //  extract file links
+            const { links } = markdownLinkExtractor(data);
+            links.forEach((link) => console.log(link, 1.5));
+            const getLinks = [];
+            console.log(getLinks, 5);
+            getLinks.push(links);
+            console.log(getLinks, 6);
+            //  https request to analyze link state
+            const test = [
+              "https://www.falabella.com/falabella-cl",
+              "https://www.google.com",
+            ];
+
+            axios.get(test).then(function (response) {
+              console.log(response.status);
+              /*  console.log(response.data);
+                console.log(response.statusText);
+                console.log(response.headers);
+                console.log(response.config);*/
+              // .then((response) => (this.info = response.data.api)
+            });
+          }
         });
-        //  extract file links
-        /*    const { links } = markdownLinkExtractor(data);
-        links.forEach((link) => console.log(link, 1.5));*/
       } else {
         //  open directory to iterate and filter md files
         //  md file goes to an array with de md files
         // return to read file
-        resolve(console.log(chalk.green("La ruta sí existe"), 1.0));
       }
+      resolve(console.log(chalk.green("La ruta sí existe"), 1.7));
     } else {
       //  reject promise if route doesnt exists
       reject(console.log(chalk.red("La ruta no existe"), 2.0));

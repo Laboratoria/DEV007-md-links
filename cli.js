@@ -4,7 +4,7 @@ mdLinks("examples/doesntexist.md")
   .catch((error) => {
     console.log(error);
   });
-mdLinks("README.md")
+mdLinks("testReadme.md")
   .then((userPath) => {
     console.log(userPath);
   })
