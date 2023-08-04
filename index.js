@@ -4,7 +4,7 @@ const path = require("path");
 const chalk = require("chalk");
 const functions = require("./functions.js");
 const markdownLinkExtractor = require("markdown-link-extractor");
-const { axios } = require("axios");
+const axios = require("axios");
 const { get } = require("http");
 //  Create function
 const mdLinks = (ruta, options) => {
@@ -44,27 +44,25 @@ const mdLinks = (ruta, options) => {
           if (err) {
             console.error(err);
           } else {
-            console.log(data, 1.4);
-            //  extract file links
-            const { links } = markdownLinkExtractor(data);
-            links.forEach((link) => console.log(link, 1.5));
-            const getLinks = [];
-            console.log(getLinks, 5);
-            getLinks.push(links);
-            console.log(getLinks, 6);
-            //  https request to analyze link state
-            const test = [
-              "https://www.falabella.com/falabella-cl",
-              "https://www.google.com",
-            ];
+            const regex = /\[(.*?)\]\((?!#)(.*?)\)/g;
+            const links = [];
+            let match;
+            while ((match = regex.exec(data)) !== null) {
+              const text = match[1].slice(0, 50);
+              const href = match[2];
+              const file = userPath;
+              links.push({ file, href, text });
+            }
+            console.log(links, 7);
 
-            axios.get(test).then(function (response) {
+            //  https request to analyze links
+            axios.get(links).then(function (response) {
               console.log(response.status);
-              /*  console.log(response.data);
-                console.log(response.statusText);
-                console.log(response.headers);
-                console.log(response.config);*/
-              // .then((response) => (this.info = response.data.api)
+              /* console.log(response.data);
+            console.log(response.statusText);
+            console.log(response.headers);
+            console.log(response.config);*/
+              // .then((response) => (this.info = response.data.api) });  } });
             });
           }
         });
