@@ -1,6 +1,23 @@
 {
-  "name": "md-links",
+  "name": "vivianagomez_md-links",
   "version": "0.1.0",
+  "description": "herramienta de línea de comando (CLI) así como tu propia librería (o biblioteca - library) en JavaScript.",
+  "main": "validate.js",
+  "bin": {
+    "mdLinks": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viviana8913/DEV007-md-links"
+  },
+  "keywords": [
+    "node.js",
+    "http",
+    "mdlinks",
+    "project"
+  ],
+  "author": "Viviana Gomez",
+  "license": "ISC",
   "engines": {
     "node": ">=16.x"
   },
@@ -8,5 +25,25 @@
     "createdAt": "2023-06-20T14:05:58.211Z",
     "version": "6.3.0",
     "commit": "e129ade681adff8cbb19f82e63f688fef2f08f32"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.6",
+    "@babel/core": "^7.22.9",
+    "@babel/node": "^7.22.6",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/register": "^7.22.5",
+    "eslint": "^8.45.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.6.1"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "babel index.js -d dist",
+    "start": "babel-node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "chalk": "^4.1.2"
   }
 }
