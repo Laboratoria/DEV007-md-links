@@ -1,11 +1,11 @@
 {
-  "name": "md-links",
-  "version": "0.1.0",
+  "name": "md-links-jg",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "node": ">=16.x"
   },
-  "main": "index.js",
+  "main": "./Lib/cli.js",
   "bootcamp": {
     "createdAt": "2023-06-20T14:05:58.211Z",
     "version": "6.3.0",
@@ -26,6 +26,14 @@
     "start": "babel-node index.js"
   },
   "dependencies": {
-    "commander": "^11.0.0"
+    "axios": "^1.4.0",
+    "commander": "^11.0.0",
+    "fetch": "^1.1.0",
+    "markdown-it": "^13.0.1",
+    "markdown-link-extractor": "^3.1.0",
+    "marked": "^5.1.1",
+    "node": "20.5.0",
+    "terminal-kit": "^3.0.0",
+    "yargs": "^17.7.2"
   }
 }
