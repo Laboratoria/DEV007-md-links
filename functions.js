@@ -3,6 +3,9 @@ const path = require("path");
 
 const pathIsAbsolute = (ruta) => {
   return path.isAbsolute(ruta);
+=======
+const pathIsAbsolute = (path) => {
+  return path.isAbsolute(path);
 };
 
 const pathUser = (path) => {

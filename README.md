@@ -42,8 +42,10 @@ El proyecto consiste en desarrollar una aplicación de línea de comandos (CLI) 
 
 Este proyecto proporciona una manera eficiente de mantener actualizados los enlaces presentes en archivos, lo que puede ser útil para asegurar la integridad y calidad de documentos, páginas web o proyectos en general.
 
+
 https://www.laboratoria.la/
 
 https://www.cinemark.ccl/pelicula?corporate_film_id=93835
 
 https://www.falabella.com/falabella-cl
+
