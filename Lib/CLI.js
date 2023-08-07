@@ -3,6 +3,11 @@ import { program } from 'commander';
 import mdLinks from './mdLinks.js';
 import chalk from 'chalk';
 // ----------------Command
+  /*const done = term.slowTyping(
+    'DONE!\n',
+    { flashStyle: term.brightWhite },
+    () => { process.exit(); },
+  );*/
 program
   .command('mdlinks <path>')
   .option('-v, --validate', 'Validate if the path exists')
@@ -52,9 +57,5 @@ program
       }
     }
   });
-  /*term.slowTyping(
-    'DONE!\n',
-    { flashStyle: term.brightWhite },
-    () => { process.exit(); },
-  );*/
+
 program.parse(process.argv);
