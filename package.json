@@ -1,12 +1,71 @@
 {
-  "name": "md-links",
-  "version": "0.1.0",
-  "engines": {
-    "node": ">=16.x"
+  "name": "md-linksyan",
+  "version": "0.1.6",
+  "description": "Módulo para validar links de archivos Markdown.",
+  "main": "index.js",
+  "author": {
+    "name": "Yanettr",
+    "email": "yanettr2023@gmail.com"
   },
-  "bootcamp": {
-    "createdAt": "2023-06-20T14:05:58.211Z",
-    "version": "6.3.0",
-    "commit": "e129ade681adff8cbb19f82e63f688fef2f08f32"
-  }
+  "directories": {
+    "test": "test"
+  },
+
+  "bin": {
+    "md-links": "./src/index.js"
+  },
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "build": "babel src --out-dir dist --copy-files",
+    "lint": "eslint .  --ext .js",
+    "lint-fix": "eslint . --ext .js --fix"
+  },
+
+  "dependencies": {
+    "@types/eslint": "^8.44.0",
+    "axios": "^1.4.0",
+    "chalk": "^5.3.0",
+    "cheerio": "^1.0.0-rc.12",
+    "colors": "^1.4.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "figlet": "^1.6.0",
+    "jest": "^29.6.1",
+    "jsdom": "^22.0.0",
+    "marked": "^4.3.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.9",
+    "@babel/core": "^7.22.8",
+    "@babel/node": "^7.22.6",
+    "@babel/preset-env": "^7.22.9",
+    "eslint": "^8.45.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16.x",
+    "type": "module",
+    "main": "src/index.js"
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yanettr/DEV007-md-links"
+  },
+
+  "bugs": {
+    "url": "https://github.com/Yanettr/DEV007-md-links/issues"
+  },
+  "homepage": "https://github.com/Yanettr/DEV007-md-links",
+
+  "keywords": [
+    "http",
+    "links",
+    "markdown",
+    "NodeJs"
+  ]
 }
