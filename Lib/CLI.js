@@ -1,4 +1,4 @@
-// CLI.js
+#!/usr/bin/env node
 import { program } from 'commander';
 import mdLinks from './mdLinks.js';
 import chalk from 'chalk';
