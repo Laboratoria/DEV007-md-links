@@ -2,31 +2,28 @@
 const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk");
-const functions = require("./functions.js");
-const markdownLinkExtractor = require("markdown-link-extractor");
 const axios = require("axios");
-const { get } = require("http");
+
 //  Create function
-const mdLinks = (ruta, options) => {
+const mdLinks = (route, options) => {
   return new Promise((resolve, reject) => {
     //  identify if route exists, method is synchronized, boolean
-    if (fs.existsSync(ruta)) {
+    if (fs.existsSync(route)) {
       console.log(
         chalk.green("la ruta sí existe "),
-        chalk.gray("(", ruta, ")"),
+        chalk.gray("(", route, ")"),
         1.0
       );
-      // resolve para retornar algo
       //  Check type of route(boolean) with .isAbsolute, only if path exists
-      if (!functions.pathIsAbsolute(ruta)) {
+      if (!path.isAbsolute(route)) {
         // if (!path.isAbsolute(path)) {
         //  transform in absolute path if the return is false(relative)
-        userPath = path.resolve(ruta);
+        userPath = path.resolve(route);
         console.log(chalk.blueBright("la ruta asboluta es: "), userPath, 1.1);
       } else {
         //  else:keep original path
         this.userPath = path;
-        console.log(chalk.blueBright("la ruta asboluta es: "), userPath, 1.12);
+        console.log(chalk.blueBright("la ruta asboluta es: "), userPath, 1.2);
       }
       //  return path info
       var stats = fs.statSync(userPath);
@@ -91,10 +88,6 @@ const mdLinks = (ruta, options) => {
   });
 };
 
-const functions = require("./functions.js");
-//  Create function
-
-//  export function mdLinks
 module.exports = {
   mdLinks,
 };
