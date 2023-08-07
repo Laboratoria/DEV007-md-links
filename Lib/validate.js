@@ -2,6 +2,7 @@
 import http from 'http';
 import https from 'https';
 import { checkLinkStatus } from './stats.js';
+import { log } from 'console';
 
 // ===================================Validation
 export const validateLink = (link) => {
@@ -32,17 +33,29 @@ export const validateLink = (link) => {
 };
 
 export const validateLinks = async (links) => {
-  const promises = []
-  links.map(async (link) => {
-    promises.push(checkLinkStatus(link))
-  });
-  return Promise.all(promises).then((responses) => {
-    return responses.map((httpCode, index) => ({...links[index],
+  let promises = []
+  if( Array.isArray(links)){
+    links.map(async (link) => {
+      promises.push(checkLinkStatus(link))
+    });
+    console.log('Promises', promises);
+    return Promise.all(promises).then((responses) => {
+      return responses.map((httpCode, index) => ({...links[index],
+          status: httpCode,
+          ok: httpCode >= 200 && httpCode < 400,
+        }))
+    })
+  }
+  else {
+    const httpCode = await  checkLinkStatus(links)
+    promises = res
+      return {...links,
         status: httpCode,
         ok: httpCode >= 200 && httpCode < 400,
-      }))
-  })
-};
+        }
+    }
+}
+
 //console.log(await validateLink('https://www.areatecnologia.com/diagramas-de-flujo.htm'));
 
 export default {validateLinks, validateLink};
