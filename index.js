@@ -53,16 +53,28 @@ const mdLinks = (ruta, options) => {
               const file = userPath;
               links.push({ file, href, text });
             }
-            console.log(links, 7);
-
-            //  https request to analyze links
-            axios.get(links).then(function (response) {
-              console.log(response.status);
-              /* console.log(response.data);
-            console.log(response.statusText);
-            console.log(response.headers);
-            console.log(response.config);*/
-              // .then((response) => (this.info = response.data.api) });  } });
+            //  start with validate functions
+            const getLinks = [];
+            links.forEach((link) => {
+              axios
+                .get(link.href)
+                .then(function (response) {
+                  getLinks.push({
+                    ...link,
+                    status: response.status,
+                    ok: response.status === 200 ? "ok" : "fail",
+                  });
+                  console.log(getLinks, 4);
+                  //  start with stats function
+                  const brokenLinks = [];
+                  if (getLinks.status === "fail") {
+                    brokenLinks.push(getLinks.href);
+                    console.log(brokenLinks, 65);
+                  }
+                })
+                .catch((err) => {
+                  getLinks.push({ ...link, status: 400, ok: "fail" });
+                });
             });
           }
         });
