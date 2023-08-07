@@ -1,11 +1,12 @@
 {
   "name": "md-links-jg",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "engines": {
     "node": ">=16.x"
   },
   "main": "./Lib/cli.js",
+  "bin": "./Lib/cli.js",
   "bootcamp": {
     "createdAt": "2023-06-20T14:05:58.211Z",
     "version": "6.3.0",
