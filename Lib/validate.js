@@ -33,13 +33,8 @@ export const validateLink = (link) => {
 };
 
 export const validateLinks = async (links) => {
-  let promises = []
   if( Array.isArray(links)){
-    links.map(async (link) => {
-      promises.push(checkLinkStatus(link))
-    });
-    console.log('Promises', promises);
-    return Promise.all(promises).then((responses) => {
+    return Promise.all(links.map(async (link) => checkLinkStatus(link))).then((responses) => {
       return responses.map((httpCode, index) => ({...links[index],
           status: httpCode,
           ok: httpCode >= 200 && httpCode < 400,
@@ -47,7 +42,7 @@ export const validateLinks = async (links) => {
     })
   }
   else {
-    const httpCode = await  checkLinkStatus(links)
+    const httpCode = await checkLinkStatus(links)
     promises = res
       return {...links,
         status: httpCode,

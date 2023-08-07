@@ -1,7 +1,7 @@
 // CLI.js
 import { program } from 'commander';
 import mdLinks from './mdLinks.js';
-
+import chalk from 'chalk';
 // ----------------Command
 program
   .command('mdlinks <path>')
@@ -12,43 +12,43 @@ program
       console.log('Path needed')
       program.help();
     } else {
-      const mdLinksOptions = {
-        validate: options.validate,
-        stats: options.stats,
-      };
+      const {
+        validate,
+        stats,
+      } = options;
       // ============================RESULTS
       try {
-        const result = await mdLinks(path, mdLinksOptions);
-        //const resultV = await mdLinks(path, mdLinksOptions);
+        const result = await mdLinks(path, options);
 
-        // ------------------Validate & Stats
-        if (mdLinksOptions.validate && mdLinksOptions.stats) {
-          const {statedLinks, validatedLinks} = result;
-          console.log(validatedLinks); // Mostrar enlaces validados
-          //console.log(result, 777);
-          console.log("Total:", statedLinks.Total);
-          console.log("Únicos:", statedLinks.Unique);
-          console.log("Rotos:", statedLinks.Broken);
-          //console.log("Broken:", statedLinks.Broken);
-          // ----------------- Just Validate
-        } else if (mdLinksOptions.validate) {
-          const { validatedLinks } = result;
-          console.log(validatedLinks); // Mostrar enlaces validados
-          //console.log(result);
-          
-          // ----------------- Just Validate
-        } else if (mdLinksOptions.stats) {
-          // Mostrar resultados solo con estadísticas
-          const { statedLinks } = result;
-          console.log("Total:", statedLinks.Total);
-          console.log("Únicos:", statedLinks.Unique);
-        } else {
-          // ------------------ No option
-          const linksWithoutStatus = result.map(({ href, text, file }) => ({ href, text, file }));
-          console.log(linksWithoutStatus);
+        if (stats && !validate) {
+          console.log("Links Stats result")
+          Object.keys(result).forEach((key) => key.toLowerCase() != 'broken' ? console.log(`${key}: ${result[key]}`) : null)
+        }
+        if (validate && !stats) {
+          console.log("Links Validate result")
+          result.forEach((LinkObj) => {
+            console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)}| ${chalk.cyan(LinkObj.href)} | ${chalk.yellow(LinkObj.status)} | ${LinkObj.ok ? chalk.green('OK') : chalk.green("Fail")}`);
+          })
+        }
+
+        if (validate && stats) {
+          console.log("Links Validate result")
+            result.validatedLinks.forEach((LinkObj) => {
+              console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)}| ${chalk.cyan(LinkObj.href)} | ${chalk.yellow(LinkObj.status)} | ${LinkObj.ok ? chalk.green('OK') : chalk.green("Fail")}`);
+            })
+          console.log("======================")
+          console.log("Links Stats result")
+            Object.keys(result.statedLinks).forEach((key) => console.log(chalk.yellow(`${key}: ${result.statedLinks[key]}`)))
+
+        }
+        if (!stats && !validate) {
+          console.log('No options found')
+          result.forEach((LinkObj) => {
+            console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)} | ${chalk.cyan(LinkObj.href)}`);
+          })
         }
       } catch (error) {
-        console.error('An error occurred:', error);
+        console.error(error.message)
       }
     }
   });
