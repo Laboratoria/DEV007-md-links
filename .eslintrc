@@ -1,8 +1,28 @@
-{
+/*{
   "env": {
     "node": true
   },
   "parserOptions": {
     "ecmaVersion": 8
-  }
+  },
+  //  reglas de react?
+  "extends": ["airbnb", "airbnb/hooks"]
+}
+*/
+{
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "no-console": "warn",
+    "no-use-before-define": "warn",
+    "spaced-comment": "warn"
+  },
+  "extends": ["standard"]
 }
