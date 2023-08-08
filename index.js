@@ -50,29 +50,45 @@ const mdLinks = (route, options) => {
               const file = userPath;
               links.push({ file, href, text });
             }
-            //  start with validate functions
-            const getLinks = [];
-            links.forEach((link) => {
-              axios
+            //  start with validate logic
+            // asyncronic response, define getlinks in a promise, to console after
+            const axiosPromises = links.map((link) => {
+              return axios
                 .get(link.href)
                 .then(function (response) {
-                  getLinks.push({
+                  return {
                     ...link,
                     status: response.status,
                     ok: response.status === 200 ? "ok" : "fail",
-                  });
-                  console.log(getLinks, 4);
-                  //  start with stats function
-                  const brokenLinks = [];
-                  if (getLinks.status === "fail") {
-                    brokenLinks.push(getLinks.href);
-                    console.log(brokenLinks, 65);
-                  }
+                  };
                 })
-                .catch((err) => {
-                  getLinks.push({ ...link, status: 400, ok: "fail" });
+                .catch(() => {
+                  return { ...link, status: 400, ok: "fail" };
                 });
             });
+            Promise.all(axiosPromises)
+              .then((results) => {
+                const getLinks = results;
+                console.log(getLinks), 4;
+                // start with stats logic
+                let totalLinks = 0;
+                getLinks.forEach((link) => {
+                  if (link) {
+                    totalLinks++;
+                  }
+                  console.log("Links totales => ", totalLinks, 19);
+                });
+                let brokenLinks = 0;
+                getLinks.forEach((link) => {
+                  if (link.ok === "fail") {
+                    brokenLinks++;
+                  }
+                  console.log("Links rotos => ", brokenLinks, 9);
+                });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
           }
         });
       } else {
@@ -95,3 +111,8 @@ module.exports = {
 console.log(chalk.blue(mdLinks("./README.md")));
 console.log(chalk.bgYellow("yellow"));
 console.log(linkify);*/
+/*           const brokenLinks = [];
+                  if (getLinks.status === "fail") {
+                    brokenLinks.push(getLinks.href);
+                    console.log(brokenLinks, 65);
+                  }*/
