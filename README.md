@@ -50,7 +50,11 @@ La idea inicial recibida para la creación del proyecto fue una librería que pe
 
 En esta primera versión del proyecto de MDLinks se decidió presentar un proyecto corto en que la lógica aplicada sea la que está basada exlusivamente en los archivos, se espera poder actualizar prontamente esta versión para poder aplicar su lógica en directorios que puedan ser recorridos en búsqueda de archivos _.md_ para analizar sus respectivos links y poder aplicar la recursividad.
 
-![](https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Diagram.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FIsaMonsalves%2FIsa-mdLinks%2Fmain%2FDiagram.drawio)
+![](https://i.postimg.cc/50Shg79q/Diagrama-sin-t-tulo.jpg)
+
+> DIAGRAMA DE FLUJO INICIAL , INCLUYE RECURSIVIDAD
+> ![](https://i.postimg.cc/bwq3HyDM/Diagrama-sin-t-tulo-1.jpg)
+> DIAGRAMA DE FLUJO FINAL, INCLUYE SÓLO LA LÓGICA APLICADA A LA PRIMERA VERSIÓN DEL PROYECTO
 
 ### Configuración del Entorno:
 
@@ -74,4 +78,41 @@ Es importante destacar que se aplicó programación asíncrona (promesas) para r
 
 ## 4. Instrucciones de uso
 
-Esto es para que el usuario sepa cómo descargar y ejecutar
+#### Instalación
+
+#### Interacción con la terminal
+
+##### Comandos:
+
+Para interactuar con la aplicación sed debe abrir la terminal del sistema y ejecutar el siguiente comando:
+
+###### mdLinks "ruta del archivo" --validate
+
+El comando _validate_ analizará el archivo en búsqueda de Links, los cuales serán almacenados para posteriormente hacer el llamado HTTPS para analizar su estado.
+Finalmente se devolverá un objeto en la terminal que indique las siguientes propiedades:
+
+- File (archivo del que se obtuvo el Link)
+- Href (Link)
+- Text (Titulo del Link)
+- Status (Estado del Link representado con su respectico código)
+- Ok( Según sea el caso puede retornar la palabra "OK" o "Fail" )
+
+![](https://i.postimg.cc/W4XKJD5X/Captura-de-pantalla-2023-08-09-172013.png)
+
+> Representación de la apariencia de la terminal al ejecutar el comando --Validate
+
+###### mdLinks "ruta del archivo" --stats
+
+El commando _stats_ devuelve estadísticas con respecto al total de Links en el archivo.
+Estas son :
+
+- Total (total de Links encontrados y analizados)
+- Unique ( total de Links únicos)
+- Broken ( Total de Links que no se encuentran operativos)
+  ![](https://i.postimg.cc/vmQkB7t4/Captura-de-pantalla-2023-08-09-172029.png)
+  > Representación de la apariencia de la terminal al ejecutar el comando --Validate
+
+##### Errores
+
+> ![](https://i.postimg.cc/XYKt41dM/Captura-de-pantalla-2023-08-09-172538.png)
+> Respuesta al indicar una ruta que no existe

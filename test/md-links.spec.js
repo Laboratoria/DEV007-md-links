@@ -1,4 +1,4 @@
-const { mdLinks } = require("../index.js");
+//const { mdLinks } = require("../index.js");
 const functions = require("../functions.js");
 
 describe("functions.routeExists", () => {
@@ -42,7 +42,7 @@ describe("functions.pathUser", () => {
     expect(typeof functions.pathUser("testReadme.md")).toBe("boolean");
   });
   it("return true if its a file", () => {
-    expect(functions.pathUser("testReadme.md")).toBeTruthy;
+    expect(functions.pathUser("testReadme.md")).toBe(true);
   });
 });
 describe("functions.absoluteRoute", () => {

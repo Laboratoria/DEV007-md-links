@@ -26,9 +26,6 @@ const readingFile = (route) => {
   fs.readFile(route, "utf-8");
 };
 
-console.log(pathUser("README.md"));
-console.log(absoluteRoute("testReadme.md"));
-console.log(fileEx("testReadme.md"));
 module.exports = {
   routeExists,
   pathIsAbsolute,
