@@ -2,44 +2,33 @@
 const fs = require("fs");
 const path = require("path");
 const functions = require("../Isa-mdLinks/functions");
-//const chalk = require("chalk");
 const axios = require("axios");
-//const table = require("table");
 const colors = require("colors");
-
-//  Create function
+//  Create principal function
 const mdLinks = (route, options) => {
   return new Promise((resolve, reject) => {
     //  identify if route exists, method is synchronized, boolean
     if (fs.existsSync(route)) {
-      console.log("la ruta sí existe ".rainbow, "(", route.green, ")");
+      resolve;
+      console.log("La ruta sí existe".green);
       //  Check type of route(boolean) with .isAbsolute, only if path exists
       if (!functions.pathIsAbsolute(route)) {
-        // if (!path.isAbsolute(path)) {
         //  transform in absolute path if the return is false(relative)
         userPath = functions.absoluteRoute(route);
-        //  console.log("la ruta asboluta es: ", userPath, 1.1);
       } else {
-        //  else:keep original path
+        //  keep original path
         this.userPath = path;
-        //   console.log("la ruta asboluta es: ", userPath, 1.2);
       }
       //  return path info
       var stats = fs.statSync(userPath);
       //  check if it is a file and if it is a file.md
       if (stats.isFile() && path.extname(userPath) === ".md") {
-        /*  console.log(
-          "¿Es un archivo? => ",
-          stats.isFile(),
-          "Es un archivo tipo =>",
-          path.extname(userPath),
-          1.3
-        );*/
         //  read file to check if md file contains Link
         fs.readFile(userPath, "utf-8", (err, data) => {
           if (err) {
             console.error(err);
           } else {
+            //  !validate!stats logic
             const regex = /\[(.*?)\]\((?!#)(.*?)\)/g;
             const links = [];
             let match;
@@ -49,8 +38,13 @@ const mdLinks = (route, options) => {
               const file = userPath;
               links.push({ file, href, text });
             }
-            //  start with validate logic
-            // asyncronic response, define getlinks in a promise, to console after
+            if (!options.validate && !options.stats) {
+              console.log(
+                links,
+                "Puedes ingresar el comando --validate para evaluar el estado de los links en el archivo "
+              );
+            }
+            //  Validate logic asyncronic response, define getlinks in a promise, to console after
             const axiosPromises = links.map((link) => {
               return axios
                 .get(link.href)
@@ -68,8 +62,10 @@ const mdLinks = (route, options) => {
             Promise.all(axiosPromises)
               .then((results) => {
                 const getLinks = results;
-                console.log(getLinks);
-                // start with stats logic
+                if (options.validate && !options.stats) {
+                  console.log(getLinks);
+                }
+                // Stats logic
                 let totalLinks = 0;
                 getLinks.forEach((link) => {
                   if (link) {
@@ -78,6 +74,7 @@ const mdLinks = (route, options) => {
                 });
                 let uniqueLinks = 0;
                 getLinks.forEach((link) => {
+                  // en este links buscar algún repetido
                   if (link) {
                     uniqueLinks++;
                   }
@@ -88,24 +85,19 @@ const mdLinks = (route, options) => {
                     brokenLinks++;
                   }
                 });
-                console.log(
-                  "Total:".green,
-                  totalLinks,
-                  "Unique".blue,
-                  uniqueLinks,
-                  "Broken:".red,
-                  brokenLinks
-                );
-                console.log({
-                  Total: totalLinks,
-                  Unique: uniqueLinks,
-                  Broken: brokenLinks,
-                });
-                console.table({
-                  Total: totalLinks,
-                  Unique: uniqueLinks,
-                  Broken: brokenLinks,
-                });
+                if (options.validate && options.stats) {
+                  console.log({
+                    Total: totalLinks,
+                    Unique: uniqueLinks,
+                    Broken: brokenLinks,
+                  });
+                }
+                if (!options.validate && options.stats) {
+                  console.log({
+                    Total: totalLinks,
+                    Unique: uniqueLinks,
+                  });
+                }
               })
               .catch((err) => {
                 console.error(err);
@@ -117,10 +109,10 @@ const mdLinks = (route, options) => {
         //  md file goes to an array with de md files
         // return to read file
       }
-      resolve(console.log("La ruta sí existe".green), 1.7);
     } else {
       //  reject promise if route doesnt exists
-      reject(console.log("La ruta no existe".red));
+      reject;
+      console.log("La ruta no existe".red);
     }
   });
 };

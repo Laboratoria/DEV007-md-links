@@ -21,7 +21,7 @@ const pathUser = (route) => {
 const fileEx = (route) => {
   return path.extname(route);
 };
-// reading file
+// Reading file
 const readingFile = (route) => {
   fs.readFile(route, "utf-8");
 };
