@@ -6,20 +6,20 @@ import { validateLinks } from '../Lib/validate.js';
 
 
 
-jest.mock('../Lib/getFiles.js', () => ({
+/*jest.mock('../Lib/getFiles.js', () => ({
   extractedMD: jest.fn(),
 }));
 jest.mock('../Lib/stats.js', () => ({
-  checkLinkStatus: jest.fn()
-}));
+  checkLinkStatus: jest.fn(),
 
+}));
+*/
 
 test('extractedMD returns an array of markdown files', () => {
-  const expectedFiles = ['sample/route/file1.md', 'sample/route/file2.md'];
+  const expectedFiles = ['C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\test\\sample\\route\\file1.md',
+   'C:\\Users\\Javiera\\Desktop\\Laboratoria\\MDLinks\\DEV007-md-links\\test\\sample\\route\\file2.md'];
 
-  extractedMD.mockReturnValue(expectedFiles);
-
-  const result = extractedMD('sample/route');
+  const result = extractedMD('C:/Users/Javiera/Desktop/Laboratoria/MDLinks/DEV007-md-links/test/sample/route');
 
   expect(result).toEqual(expectedFiles);
 });
@@ -93,8 +93,6 @@ describe('checkLinkStatus', () => {
     const link = { href: 'https://example.com' };
     const expectedStatusCode = 200;
 
-    checkLinkStatus.mockResolvedValueOnce(expectedStatusCode); // Mocking the function
-
     const result = await checkLinkStatus(link);
 
     expect(result).toEqual(expectedStatusCode);
@@ -102,8 +100,6 @@ describe('checkLinkStatus', () => {
 
   test('Throws an error for a broken link', async () => {
     const link = { href: 'https://brokibli.com/' };
-
-    checkLinkStatus.mockRejectedValueOnce(new Error('Link is broken')); // Mocking the function
 
     await expect(checkLinkStatus(link)).rejects.toThrowError('Link is broken');
   });
@@ -187,18 +183,14 @@ describe('checkStats', () => {
 // ----------------------------ValidateLinks
 describe('validateLinks', () => {
   test('should validate an array of links and return the correct statuses', async () => {
-    // Set up the inputs for your test case
     const links = ['http://example.com', 'https://example.com'];
     const expectedStatuses = [200, 200];
 
-    // Mock the checkLinkStatus function to return the expected statuses
-    checkLinkStatus.mockResolvedValueOnce(expectedStatuses[0]);
-    checkLinkStatus.mockResolvedValueOnce(expectedStatuses[1]);
+    //checkLinkStatus.mockResolvedValueOnce(expectedStatuses[0]);
+    //checkLinkStatus.mockResolvedValueOnce(expectedStatuses[1]);
 
-    // Call the validateLinks function
     const result = await validateLinks(links);
 
-    // Assert that the result matches the expected output
     expect(result).toEqual([
       {
         href: 'http://example.com',
@@ -214,17 +206,14 @@ describe('validateLinks', () => {
       }
     ]);
 
-    // Verify that the checkLinkStatus function was called with the correct arguments
     expect(checkLinkStatus).toHaveBeenCalledWith(links[0]);
     expect(checkLinkStatus).toHaveBeenCalledWith(links[1]);
   });
 
   test('should validate a single link and return the correct status', async () => {
-    // Set up the inputs for your test case
     const link = 'http://example.com';
     const expectedStatus = 200;
 
-    // Mock the checkLinkStatus function to return the expected status
     checkLinkStatus.mockResolvedValueOnce(expectedStatus);
 
     // Call the validateLinks function
@@ -238,7 +227,6 @@ describe('validateLinks', () => {
       ok: true
     });
 
-    // Verify that the checkLinkStatus function was called with the correct argument
     expect(checkLinkStatus).toHaveBeenCalledWith(link);
   });
 });
