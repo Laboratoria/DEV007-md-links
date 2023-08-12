@@ -26,28 +26,28 @@ program
         const result = await mdLinks(path, options);
 
         if (stats && !validate) {
-          console.log("Links Stats result")
-          Object.keys(result).forEach((key) => key.toLowerCase() != 'broken' ? console.log(`${key}: ${result[key]}`) : null)
+          console.log(chalk.bgCyan("Links Stats result"))
+          Object.keys(result).forEach((key) => key.toLowerCase() != 'broken' ? console.log(chalk.yellow(`${key}: ${result[key]}`)) : null)
         }
         if (validate && !stats) {
-          console.log("Links Validate result")
+          console.log(chalk.bgCyan("Links Validate result"))
           result.forEach((LinkObj) => {
-            console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)}| ${chalk.cyan(LinkObj.href)} | ${chalk.yellow(LinkObj.status)} | ${LinkObj.ok ? chalk.green('OK') : chalk.green("Fail")}`);
+            console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)}| ${chalk.cyan(LinkObj.href)} | ${chalk.yellow(LinkObj.status)} | ${LinkObj.ok ? chalk.greenBright('OK') : chalk.red("Fail")}`);
           })
         }
 
         if (validate && stats) {
-          console.log("Links Validate result")
+          console.log(chalk.bgCyan("Links Validate result"))
             result.validatedLinks.forEach((LinkObj) => {
-              console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)}| ${chalk.cyan(LinkObj.href)} | ${chalk.yellow(LinkObj.status)} | ${LinkObj.ok ? chalk.green('OK') : chalk.green("Fail")}`);
+              console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)}| ${chalk.cyan(LinkObj.href)} | ${chalk.yellow(LinkObj.status)} | ${LinkObj.ok ? chalk.green('OK') : chalk.red("Fail")}`);
             })
-          console.log("======================")
-          console.log("Links Stats result")
+          console.log(chalk.cyan("=================="))
+          console.log(chalk.bgCyan("Links Stats result"))
             Object.keys(result.statedLinks).forEach((key) => console.log(chalk.yellow(`${key}: ${result.statedLinks[key]}`)))
 
         }
         if (!stats && !validate) {
-          console.log('No options found')
+          console.log(chalk.bgCyan('No options found'))
           result.forEach((LinkObj) => {
             console.log(`${chalk.inverse.magenta(path)} | ${chalk.grey(LinkObj.text)} | ${chalk.cyan(LinkObj.href)}`);
           })
