@@ -5,6 +5,13 @@
   "engines": {
     "node": ">=16.x"
   },
+  "keywords": ["node.js", "http", "mdlinks", "project"],
+  "author": "Javi Gandarillas",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JaviGandarillas/DEV007-md-links.git"
+  },
   "main": "./Lib/cli.js",
   "bin": "./Lib/cli.js",
   "bootcamp": {
