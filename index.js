@@ -36,12 +36,16 @@ const mdLinks = (route, options) => {
               const text = match[1].slice(0, 50);
               const href = match[2];
               const file = userPath;
+              //   const onlyLinks = match[2];
               links.push({ file, href, text });
+              //   console.log(onlyLinks);
+              //   onlyLinks.push(href);
             }
+
             if (!options.validate && !options.stats) {
               console.log(
                 links,
-                "Puedes ingresar el comando --validate para evaluar el estado de los links en el archivo "
+                "Puedes ingresar el comando --validate para evaluar el estado de los links en el archivo y el comando --stats para obtener estadísticas de los links "
               );
             }
             //  Validate logic asyncronic response, define getlinks in a promise, to console after
@@ -64,6 +68,12 @@ const mdLinks = (route, options) => {
                 const getLinks = results;
                 if (options.validate && !options.stats) {
                   console.log(getLinks);
+                  console.log(
+                    "Puedes ingresar el comando".italic.bold,
+                    " --stats".grey,
+                    "para evaluar el estado de los links en el archivo".italic
+                      .bold
+                  );
                 }
                 // Stats logic
                 let totalLinks = 0;
@@ -72,13 +82,8 @@ const mdLinks = (route, options) => {
                     totalLinks++;
                   }
                 });
-                let uniqueLinks = 0;
-                getLinks.forEach((link) => {
-                  // en este links buscar algún repetido
-                  if (link) {
-                    uniqueLinks++;
-                  }
-                });
+                let uniqueLinks = new Set(getLinks.map((link) => link.href))
+                  .size;
                 let brokenLinks = 0;
                 getLinks.forEach((link) => {
                   if (link.ok === "fail") {
@@ -86,6 +91,7 @@ const mdLinks = (route, options) => {
                   }
                 });
                 if (options.validate && options.stats) {
+                  console.log(getLinks);
                   console.log({
                     Total: totalLinks,
                     Unique: uniqueLinks,
@@ -97,6 +103,12 @@ const mdLinks = (route, options) => {
                     Total: totalLinks,
                     Unique: uniqueLinks,
                   });
+                  console.log(
+                    "Puedes ingresar el comando".italic.bold,
+                    " --validate".grey,
+                    "para evaluar el estado de los links en el archivo".italic
+                      .bold
+                  );
                 }
               })
               .catch((err) => {
@@ -105,6 +117,8 @@ const mdLinks = (route, options) => {
           }
         });
       } else {
+        console.log("El archivo a analizar No es de tipo .md".red.italic);
+        console.log("Te recomendamos probar otro archivo".bold.italic);
         //  open directory to iterate and filter md files
         //  md file goes to an array with de md files
         // return to read file
@@ -116,7 +130,6 @@ const mdLinks = (route, options) => {
     }
   });
 };
-
 module.exports = {
   mdLinks,
 };
