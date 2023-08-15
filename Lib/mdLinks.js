@@ -1,8 +1,8 @@
-import { existsSync, link, lstatSync } from 'fs';
-import { extname, resolve, isAbsolute } from 'path';
+import { existsSync, lstatSync } from 'fs';
+import { extname } from 'path';
 import { extractedMD } from './getFiles.js';
 import { readMdFiles, extractLinks } from './getLinks.js';
-import { checkStats, stats, statsOffline } from './stats.js';
+import { checkStats } from './stats.js';
 import { validateLinks } from './validate.js';
 import path from 'path';
 

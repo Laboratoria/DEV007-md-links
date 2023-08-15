@@ -24,7 +24,7 @@ export const checkLinkStatus = (link) => {
 
 
 // ----------------------------Get Statistics
-export const stats = async (links) => {
+/*export const stats = async (links) => {
   let brokenCount = 0
   const uniqueCount = [...new Set(links.map(item => item.href))].length;
   for (const link of links) {
@@ -58,7 +58,7 @@ export const statsOffline = (links) => {
     Total: links.length,
   };
 };
-
+*/
 export const checkStats = async (links, isOnline = true) => {
   let brokenCount = 0;
   let isLinkBroken;
